@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components'
 import { useTrail, animated } from 'react-spring'
 import { InitialTile, TILE_HEIGHT, TITLE_HEIGHT } from './homeTile'
-// import { SkullStyled } from './svg/Skull';
-import {AnimatedSkull} from './svg/AnimatedSkull'
+import { AnimatedSkull } from './svg/AnimatedSkull'
+import { AnimatedGhost } from './svg/AnimatedGhost'
 
 const AppParent = styled.div`
   text-align: center;
@@ -20,7 +20,12 @@ const HomeContainer = styled.div`
   justify-content: center;
 `
 // const animatedSkull = styled()
-const titles =['FIREFLIE','DESCENT','FISH','SUNLIGHT','A RUIN']
+const titles =[{title:'FIREFLIE', icon:AnimatedSkull},
+  {title:'DESCENT', icon:AnimatedGhost},
+  {title:'FISH', icon:AnimatedSkull},
+  {title:'SUNLIGHT', icon:AnimatedGhost},
+  {title:'A RUIN', icon:AnimatedSkull},
+  {title:'ROSE',icon:AnimatedSkull}]
 const config = { mass: 5, tension: 2000, friction: 350 }
 function App() {
   const trail = useTrail(titles.length, {
@@ -36,9 +41,9 @@ function App() {
       <HomeContainer>
         {trail.map(({ x, height,svgHeight, ...rest }, index) => (
           <animated.div
-            key={titles[index]}
+            key={titles[index].title}
             style={{ ...rest, transform: x.interpolate(x => `translate3d(0,${x}px,0)`) }}>
-              {InitialTile(titles[index],(AnimatedSkull(svgHeight)), height)}
+              {InitialTile(titles[index].title,titles[index].icon(svgHeight), height)}
           </animated.div>
         ))}
       </HomeContainer>   

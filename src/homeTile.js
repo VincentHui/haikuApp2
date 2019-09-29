@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState } from 'react';
 import styled from 'styled-components'
 import { animated } from 'react-spring'
 export const TILE_HEIGHT = 300;
@@ -26,9 +26,13 @@ const Title = styled.div`
   vertical-align: middle;
 `
 
-export const InitialTile = (title,content, height)=>(
-  <HomeTile style={{height}}>
-    <Content>{content}</Content>
-    <Title>{title}</Title>
-  </HomeTile>
-)
+export const InitialTile = (title,content, height)=>{
+  const [toggle, set] = useState(false);
+  return(
+    <HomeTile style={{height}}>
+      <Content>{content}</Content>
+      <Title>{title}</Title>
+    </HomeTile>)
+}
+
+
