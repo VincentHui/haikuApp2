@@ -3,35 +3,35 @@ import React from 'react';
 
 export const AnimatedGhost =(height)=>
     <animated.svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"  x="0px" y="0px"
-	 width="200px" height={height} viewBox="284 362 200 300" enable-background="new 284 362 200 300" >
+	 width="200px" height={height} viewBox="284 362 200 300" enableBackground="new 284 362 200 300" >
         <g display="none">
             <g display="inline">
-                <circle stroke="#999999" stroke-width="0.5197" stroke-miterlimit="10" cx="382.195" cy="416.184" r="353.756"/>
-                <path stroke="#999999" stroke-width="0.5197" stroke-miterlimit="10" d="M634.668,714.56H129.73c-26.35,0-47.9-21.565-47.9-47.892
+                <circle stroke="#999999" strokeWidth="0.5197" strokeMiterlimit="10" cx="382.195" cy="416.184" r="353.756"/>
+                <path stroke="#999999" strokeWidth="0.5197" strokeMiterlimit="10" d="M634.668,714.56H129.73c-26.35,0-47.9-21.565-47.9-47.892
                     V161.73c0-26.35,21.55-47.9,47.9-47.9h504.938c26.35,0,47.899,21.55,47.899,47.9v504.938
                     C682.56,692.994,661.01,714.56,634.668,714.56z"/>
-                <path stroke="#999999" stroke-width="0.5197" stroke-miterlimit="10" d="M590.814,769.94h-416.11
+                <path stroke="#999999" strokeWidth="0.5197" strokeMiterlimit="10" d="M590.814,769.94h-416.11
                     c-26.35,0-47.908-21.55-47.908-47.9V110.336c0-26.342,21.558-47.893,47.908-47.893h416.118c26.343,0,47.9,21.55,47.9,47.893
                     V722.04C638.715,748.391,617.157,769.94,590.814,769.94z"/>
-                <path stroke="#999999" stroke-width="0.5197" stroke-miterlimit="10" d="M688.051,671.659H76.339
+                <path stroke="#999999" strokeWidth="0.5197" strokeMiterlimit="10" d="M688.051,671.659H76.339
                     c-26.35,0-47.9-21.558-47.9-47.899V207.626c0-26.342,21.55-47.892,47.9-47.892h611.711c26.351,0,47.9,21.55,47.9,47.892v416.126
                     C735.951,650.094,714.401,671.659,688.051,671.659z"/>
-                <circle stroke="#999999" stroke-width="0.5197" stroke-miterlimit="10" cx="382.756" cy="414.195" r="157.171"/>
-                <rect x="1.06" y="32" stroke="#999999" stroke-width="0.5197" stroke-miterlimit="10" width="764.39" height="768.384"/>
-                <line fill="none" stroke="#999999" stroke-width="0.5197" stroke-miterlimit="10" x1="1.06" y1="32" x2="765.45" y2="800.384"/>
-                <line fill="none" stroke="#999999" stroke-width="0.5197" stroke-miterlimit="10" x1="1.06" y1="800.384" x2="765.45" y2="32"/>
+                <circle stroke="#999999" strokeWidth="0.5197" strokeMiterlimit="10" cx="382.756" cy="414.195" r="157.171"/>
+                <rect x="1.06" y="32" stroke="#999999" strokeWidth="0.5197" strokeMiterlimit="10" width="764.39" height="768.384"/>
+                <line fill="none" stroke="#999999" strokeWidth="0.5197" strokeMiterlimit="10" x1="1.06" y1="32" x2="765.45" y2="800.384"/>
+                <line fill="none" stroke="#999999" strokeWidth="0.5197" strokeMiterlimit="10" x1="1.06" y1="800.384" x2="765.45" y2="32"/>
                 
-                    <line fill="none" stroke="#999999" stroke-width="0.5197" stroke-miterlimit="10" x1="271.488" y1="32" x2="270.497" y2="800.384"/>
+                    <line fill="none" stroke="#999999" strokeWidth="0.5197" strokeMiterlimit="10" x1="271.488" y1="32" x2="270.497" y2="800.384"/>
                 
-                    <line fill="none" stroke="#999999" stroke-width="0.5197" stroke-miterlimit="10" x1="383.754" y1="32" x2="382.756" y2="800.384"/>
+                    <line fill="none" stroke="#999999" strokeWidth="0.5197" strokeMiterlimit="10" x1="383.754" y1="32" x2="382.756" y2="800.384"/>
                 
-                    <line fill="none" stroke="#999999" stroke-width="0.5197" stroke-miterlimit="10" x1="495.313" y1="32" x2="494.315" y2="800.384"/>
+                    <line fill="none" stroke="#999999" strokeWidth="0.5197" strokeMiterlimit="10" x1="495.313" y1="32" x2="494.315" y2="800.384"/>
                 
-                    <line fill="none" stroke="#999999" stroke-width="0.5197" stroke-miterlimit="10" x1="1.06" y1="303.427" x2="765.45" y2="301.438"/>
+                    <line fill="none" stroke="#999999" strokeWidth="0.5197" strokeMiterlimit="10" x1="1.06" y1="303.427" x2="765.45" y2="301.438"/>
                 
-                    <line fill="none" stroke="#999999" stroke-width="0.5197" stroke-miterlimit="10" x1="1.06" y1="415.193" x2="765.45" y2="413.197"/>
+                    <line fill="none" stroke="#999999" strokeWidth="0.5197" strokeMiterlimit="10" x1="1.06" y1="415.193" x2="765.45" y2="413.197"/>
                 
-                    <line fill="none" stroke="#999999" stroke-width="0.5197" stroke-miterlimit="10" x1="0" y1="529.388" x2="764.398" y2="527.391"/>
+                    <line fill="none" stroke="#999999" strokeWidth="0.5197" strokeMiterlimit="10" x1="0" y1="529.388" x2="764.398" y2="527.391"/>
             </g>
         </g>
         <g>

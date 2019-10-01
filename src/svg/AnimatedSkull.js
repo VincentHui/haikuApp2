@@ -4,7 +4,7 @@ import React from 'react';
 export const AnimatedSkull =(height)=>
 
     <animated.svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-    height={height} width="200px"  viewBox="0 0 200 250" enable-background="new 0 0 200 250" >
+    height={height} width="200px"  viewBox="0 0 200 250" enableBackground="new 0 0 200 250" >
         <g>
             <polygon fill="none" points="107.186,57.62 99.479,61.623 107.186,61.623 	"/>
             <polygon fill="none" points="107.186,48.922 93.02,56.823 93.02,60.275 107.186,52.919 	"/>
