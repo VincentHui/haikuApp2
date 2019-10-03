@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components'
 import { animated, useSpring } from 'react-spring'
+import ClickNHold from './ClickNHold'
 export const TILE_HEIGHT = 300;
 export const TITLE_HEIGHT = 50;
 const HomeTile = styled(animated.div)`
@@ -11,7 +12,20 @@ const HomeTile = styled(animated.div)`
   display: flex;
   justify-content: center;
   flex-direction: column;
+
+`
+
+const TileContainer = styled(animated.div)`
+  display: flex;
   margin: 20px
+`
+
+const Drawer = styled(animated.div)`
+  color: white;
+  width: 0px;
+  height: 50px;
+  border-style: solid;
+  border-width: thin;
 `
 
 const Content =styled.div`
@@ -60,20 +74,31 @@ export function useLongPress(callback = () => {}, ms = 300,
 const trans = (y,s) => `rotateY(${y}deg) scale(${s})`
 export const InitialTile = (title,content, height)=>{
   const [clicked,setClick] = useState(false)
-  const [props, set] = useSpring(() => ({ xys: [0, 1], config: { mass: 5, tension: 400, friction: 40 } }))
-  const testPress = useLongPress(
-    ()=>setClick(false), 
-    500, 
-  ()=> {set({ xys: [0, 0.8]}); setClick(!clicked)},
-  ()=> set({ xys: [0, clicked ? 1.1 : 1.0]}))
+  const [clickProps, set] = useSpring(() => ({ xys: [0, 1], config: { mass: 5, tension: 400, friction: 40 } }))
+  clicked ? set({xys:[0,1.1]}) : set({xys:[0,1]})
   return(
-       <HomeTile style={{height, transform: props.xys.interpolate(trans) }} 
-        {...testPress}
-      >
-        <Content>{content}</Content>
-        <Title>{title}</Title>
-      </HomeTile>
+    <ClickNHold
+    time={0.5}
+    onStart={()=> set({xys: [0, 0.8]})}
+    onEnd={(e, enough)=>{
+      !enough ? setClick(!clicked) : set({xys: [0, 1.0]})
+      enough && setClick(false)
+      }}>
+      <TileContainer 
+        style={{height, transform: clickProps.xys.interpolate(trans) }}
+        >
+        <HomeTile>
+          <Content>{content}</Content>
+          <Title>{title}</Title>
+        </HomeTile>
+        <TileDrawer open={clicked}/>
+      </TileContainer>
+    </ClickNHold>
    )
 }
 
-
+const TileDrawer =({open})=>{
+  const [Hover, setHover] = useSpring(()=> ({ width :  0, opacity: 0}))
+  open ? setHover({width: 100 , opacity: 1}) : setHover({width: 0 , opacity: 0})
+  return <Drawer style={Hover}/>
+}
