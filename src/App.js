@@ -4,8 +4,10 @@ import { useTrail, animated } from 'react-spring'
 import { InitialTile, TILE_HEIGHT, TITLE_HEIGHT } from './homeTile'
 import { AnimatedSkull } from './svg/AnimatedSkull'
 import { AnimatedGhost } from './svg/AnimatedGhost'
+import TransitionMenu from './transition/TransitionMenu'
 
 const AppParent = styled.div`
+  user-select: none;
   text-align: center;
   background-color: #282c34;
   font-size: calc(10px + 2vmin);
@@ -43,11 +45,14 @@ function App() {
           <animated.div
             key={titles[index].title}
             style={{ ...rest, transform: x.interpolate(x => `translate3d(0,${x}px,0)`) }}>
-              {InitialTile(titles[index].title,titles[index].icon(svgHeight), height)}
+              <InitialTile title={titles[index].title} 
+                content={titles[index].icon(svgHeight)}
+                />
           </animated.div>
         ))}
       </HomeContainer>   
     </AppParent>
+    // <TransitionMenu></TransitionMenu>
   );
 }
 export default App;

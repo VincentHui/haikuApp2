@@ -45,6 +45,15 @@ const Title = styled.div`
   -o-user-select:none;
   user-select:none;
 `
+
+const TileButton = styled.button`
+  height: ${TITLE_HEIGHT}px;
+  width: 200px;
+  line-height: 50px;
+  border-top: thin solid white;
+  text-align: center;
+  vertical-align: middle;
+`
 export function useLongPress(callback = () => {}, ms = 300, 
   down = ()=>{ }, up = () => {}) {
   const [startLongPress, setStartLongPress] = useState(false);
@@ -72,10 +81,13 @@ export function useLongPress(callback = () => {}, ms = 300,
 }
 
 const trans = (y,s) => `rotateY(${y}deg) scale(${s})`
-export const InitialTile = (title,content, height)=>{
+export const InitialTile = ({title,content})=>{
   const [clicked,setClick] = useState(false)
   const [clickProps, set] = useSpring(() => ({ xys: [0, 1], config: { mass: 5, tension: 400, friction: 40 } }))
-  clicked ? set({xys:[0,1.1]}) : set({xys:[0,1]})
+  clicked ? set({xys:[180,1.1]}) : set({xys:[0,1]})
+  const front =  <><Content>{content}</Content><Title>{title}</Title></>
+  const back = <><Content><div style={{width:200, height:250}}/></Content><TileButton></TileButton></>
+  // const heightExtra = {height: clicked? 400 : 300}
   return(
     <ClickNHold
     time={0.5}
@@ -85,16 +97,22 @@ export const InitialTile = (title,content, height)=>{
       enough && setClick(false)
       }}>
       <TileContainer 
-        style={{height, transform: clickProps.xys.interpolate(trans) }}
+        style={{transform: clickProps.xys.interpolate(trans)}}
         >
         <HomeTile>
-          <Content>{content}</Content>
-          <Title>{title}</Title>
+          <CardFlipper flipped={clicked} front = {front} back ={back}/>
         </HomeTile>
-        <TileDrawer open={clicked}/>
+        {/* <TileDrawer open={clicked}/> */}
       </TileContainer>
     </ClickNHold>
-   )
+   )  
+}
+
+const CardFlipper = ({flipped, front, back})=>{
+  const trans2 = (y,s) => `rotateY(${y}deg) scale(${s})`
+  const [RotateProps, set] = useSpring(() => ({ xys: [20, 1], config: { mass: 5, tension: 400, friction: 40 } }))
+  // flipped ? set({xys:[20,1]}) : set({xys:[20,1]})
+  return flipped ? <div style={{transform: 'rotateY(180deg)'}}>{back}</div> : <div>{front}</div>
 }
 
 const TileDrawer =({open})=>{
