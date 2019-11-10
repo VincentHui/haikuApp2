@@ -1,11 +1,15 @@
 import React from 'react';
 import styled from 'styled-components'
+import {connect} from 'react-redux'
 import { useTrail, animated } from 'react-spring'
-import { InitialTile, TILE_HEIGHT, TITLE_HEIGHT } from './homeTile'
-import { AnimatedSkull } from './svg/AnimatedSkull'
-import { AnimatedGhost } from './svg/AnimatedGhost'
-import TransitionMenu from './transition/TransitionMenu'
-
+import { ConnectedTile, TILE_HEIGHT, TITLE_HEIGHT } from './homeTiles/homeTile'
+// import { createStore } from 'redux-react'
+import { homeTiles, UpdateAction } from '../src/homeTiles/reducers'
+import { createStore, applyMiddleware } from "redux";
+import logger from 'redux-logger'
+import { Provider } from 'react-redux'
+// import TransitionMenu from './transition/TransitionMenu'
+const store = createStore(homeTiles, applyMiddleware(logger))
 const AppParent = styled.div`
   user-select: none;
   text-align: center;
@@ -21,16 +25,24 @@ const HomeContainer = styled.div`
   align-items: center;
   justify-content: center;
 `
-// const animatedSkull = styled()
-const titles =[{title:'FIREFLIE', icon:AnimatedSkull},
-  {title:'DESCENT', icon:AnimatedGhost},
-  {title:'FISH', icon:AnimatedSkull},
-  {title:'SUNLIGHT', icon:AnimatedGhost},
-  {title:'A RUIN', icon:AnimatedSkull},
-  {title:'ROSE',icon:AnimatedSkull}]
+
+const tiles = store.getState()
+// store.dispatch(UpdateAction(true, 'FIREFLY'));
 const config = { mass: 5, tension: 2000, friction: 350 }
 function App() {
-  const trail = useTrail(titles.length, {
+
+  return (
+    <Provider store={store}>
+      <AppParent>
+        <ConnectedHome />
+      </AppParent>
+    </Provider>
+
+  );
+}
+
+const Home =({tiles})=>{
+  const trail = useTrail(tiles.length, {
     config,
     opacity: 1 ,
     x:  0 ,
@@ -38,21 +50,24 @@ function App() {
     svgHeight: TILE_HEIGHT-TITLE_HEIGHT,
     from: { opacity: 0, x: 10, height: 0 , svgHeight: 0},
   })
-  return (
-    <AppParent>
-      <HomeContainer>
-        {trail.map(({ x, height,svgHeight, ...rest }, index) => (
-          <animated.div
-            key={titles[index].title}
-            style={{ ...rest, transform: x.interpolate(x => `translate3d(0,${x}px,0)`) }}>
-              <InitialTile title={titles[index].title} 
-                content={titles[index].icon(svgHeight)}
-                />
-          </animated.div>
-        ))}
-      </HomeContainer>   
-    </AppParent>
-    // <TransitionMenu></TransitionMenu>
-  );
+
+  return (<HomeContainer>
+  {trail.map(({ x, height,svgHeight, ...rest }, index) => (
+    <animated.div
+      key={tiles[index].title}
+      style={{ ...rest, transform: x.interpolate(x => `translate3d(0,${x}px,0)`) }}>
+        <ConnectedTile title={tiles[index].title} 
+          content={tiles[index].icon(svgHeight)}
+          />
+    </animated.div>
+  ))}
+  </HomeContainer>)   
 }
+
+const mapStateToProps = (state) => ({
+  tiles: state
+})
+const ConnectedHome = connect(
+  mapStateToProps)
+  (Home)
 export default App;
