@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback} from 'react';
 import {connect} from 'react-redux'
 import styled from 'styled-components'
 import { animated, useSpring } from 'react-spring'
@@ -92,41 +92,33 @@ const TileButton = styled.button`
 //   };
 // }
 
-const trans = (y,s) => `rotateY(${y}deg) scale(${s})`
+const titlePress = (click=()=>{}, held=()=>{}, released=()=>{})=>{
+    return {
+      onMouseDown: ()=>held(),
+      onMouseUp: ()=>released(),
+      onClick: ()=>click(),
+      onTouchStart: () => held(),
+      onTouchEnd: () => released(),
+  };
+}
+
 const InitialTile = ({title,content})=>{
   const [flipped,toogleFlipped] = useState(false)
   const [MouseScale, setMouseScale] = useState(1)
-  // const angle = flipped ? 0 : 180
-  // const [clickProps, set] = useSpring(() => ({ xys: [0, 1], config: { mass: 5, tension: 400, friction: 40 } }))
-  //   const [flipped, set] = useState(false)
+  const inputFunctions = titlePress(() => toogleFlipped(!flipped), () => setMouseScale(0.7), () => setMouseScale(1.0))
   const { transform, opacity, height, scale } = useSpring({
     opacity: flipped ? 1 : 0,
     transform: `perspective(600px) rotateY(${flipped ? 180 : 0}deg) scale(${MouseScale})`,
     height : flipped ? TILE_HEIGHT : 0,
     scale : flipped ? 1 : 1,
-    config: { mass: 5, tension: 500, friction: 80 }
+    config: { mass: 5, tension: 500, friction: 60 }
   })
   const front =  <><Content>{content}</Content><Title>{title}</Title></>
   const back = <><Content>{content}</Content><TileButton style={{pointerEvents:'auto'}}></TileButton></>
   return(
-    <OuterContainer 
-      onClick={
-        () => toogleFlipped(!flipped)
-        // set({xys: [angle, 1.0]})
-        // !flipped && toogleFlipped(true, title)
-        
-      }
-      onMouseDown={()=>{
-        setMouseScale( (s) => s * 0.7)
-      }}
-      onMouseUp={()=>{
-        setMouseScale(1)
-      }}
-    >
-      <TileContainer 
-        
-        >
-        <HomeTile unclickable style={{ height: height.interpolate(h => TILE_HEIGHT -h),
+    <OuterContainer {...inputFunctions}>
+      <TileContainer>
+        <HomeTile style={{ height: height.interpolate(h => TILE_HEIGHT -h),
            opacity: opacity.interpolate(o => 1 - o), transform }}>
           {front}
         </HomeTile>
@@ -134,11 +126,6 @@ const InitialTile = ({title,content})=>{
           {back}
         </HomeTile>
       </TileContainer>
-      {/* <TileContainer 
-        
-        >
-
-      </TileContainer> */}
     </OuterContainer>
    )  
 }
