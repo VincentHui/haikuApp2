@@ -5,8 +5,17 @@ import { animated, useSpring } from 'react-spring'
 import {UpdateAction} from './reducers'
 // import ClickNHold from './ClickNHold'
 export const TILE_HEIGHT = 300;
+export const TILE_WIDTH = 200;
 export const TITLE_HEIGHT = 50;
+
+const OuterContainer = styled.div`
+  height: ${TILE_HEIGHT}px;
+  width: ${TILE_WIDTH}px;
+  margin: 20px
+`
 const HomeTile = styled(animated.div)`
+  pointer-events: none;
+  position: absolute;
   width: 200px;
   color: white;
   border-style: solid;
@@ -19,7 +28,7 @@ const HomeTile = styled(animated.div)`
 
 const TileContainer = styled(animated.div)`
   display: flex;
-  margin: 20px
+  flex-direction: column;
 `
 
 const Drawer = styled(animated.div)`
@@ -56,6 +65,7 @@ const TileButton = styled.button`
   text-align: center;
   vertical-align: middle;
 `
+
 // export function useLongPress(callback = () => {}, ms = 300, 
 //   down = ()=>{ }, up = () => {}) {
 //   const [startLongPress, setStartLongPress] = useState(false);
@@ -83,51 +93,53 @@ const TileButton = styled.button`
 // }
 
 const trans = (y,s) => `rotateY(${y}deg) scale(${s})`
-const InitialTile = ({title,content, flipped, toogleFlipped})=>{
-  const [down,setDown] = useState(false)
-  const angle = flipped ? 0 : 180
-  const [clickProps, set] = useSpring(() => ({ xys: [0, 1], config: { mass: 5, tension: 400, friction: 40 } }))
-  // const [scaleProp, setScale] = use
-  // console.log(flipped)
+const InitialTile = ({title,content})=>{
+  const [flipped,toogleFlipped] = useState(false)
+  const [MouseScale, setMouseScale] = useState(1)
+  // const angle = flipped ? 0 : 180
+  // const [clickProps, set] = useSpring(() => ({ xys: [0, 1], config: { mass: 5, tension: 400, friction: 40 } }))
+  //   const [flipped, set] = useState(false)
+  const { transform, opacity, height, scale } = useSpring({
+    opacity: flipped ? 1 : 0,
+    transform: `perspective(600px) rotateY(${flipped ? 180 : 0}deg) scale(${MouseScale})`,
+    height : flipped ? TILE_HEIGHT : 0,
+    scale : flipped ? 1 : 1,
+    config: { mass: 5, tension: 500, friction: 80 }
+  })
   const front =  <><Content>{content}</Content><Title>{title}</Title></>
-  const back = <><Content>{content}</Content><TileButton></TileButton></>
-  // const heightExtra = {height: clicked? 400 : 300}
-      // time={0.5}
-    // onStart={()=> set({xys: [0, 0.8]})}
-    // onEnd={(e, enough)=>{
-    //   !enough ? setClick(!clicked) : set({xys: [0, 1.0]})
-    //   enough && setClick(false)
-    //   }}>
+  const back = <><Content>{content}</Content><TileButton style={{pointerEvents:'auto'}}></TileButton></>
   return(
-    <div 
-      onClick={()=>{
+    <OuterContainer 
+      onClick={
+        () => toogleFlipped(!flipped)
         // set({xys: [angle, 1.0]})
-        !flipped && toogleFlipped(true, title)
-        }
+        // !flipped && toogleFlipped(true, title)
+        
       }
       onMouseDown={()=>{
-        set({xys: [angle, 0.8]})
-        // toogleFlipped(true, title)
-        setDown(true)
+        setMouseScale( (s) => s * 0.7)
       }}
       onMouseUp={()=>{
-        set({xys: [angle, !flipped ? 1.1 : 1.0]})
-        
+        setMouseScale(1)
       }}
-      // onMouseLeave={()=>{
-      //   down && set({xys: [angle, flipped ? 1.1 : 1.0]})
-      //   setDown(false)
-      // }}
     >
       <TileContainer 
-        style={{transform: clickProps.xys.interpolate(trans)}}
+        
         >
-        <HomeTile>
-          <CardFlipper toggleFlipped={()=>toogleFlipped(false, title)} flipped={flipped} front = {front} back ={back}/>
+        <HomeTile unclickable style={{ height: height.interpolate(h => TILE_HEIGHT -h),
+           opacity: opacity.interpolate(o => 1 - o), transform }}>
+          {front}
         </HomeTile>
-        {/* <TileDrawer open={clicked}/> */}
+        <HomeTile style={{ height, opacity, transform: transform.interpolate(t => `${t} rotateY(180deg)`) }}>
+          {back}
+        </HomeTile>
       </TileContainer>
-    </div>
+      {/* <TileContainer 
+        
+        >
+
+      </TileContainer> */}
+    </OuterContainer>
    )  
 }
 const mapStateToProps = (state, props) => ({
@@ -148,7 +160,20 @@ const CardFlipper = ({flipped, front, back, toggleFlipped})=>{
   console.log(flipped)
   return flipped ? <div onClick={()=>flipped && toggleFlipped()}>{back}</div> : <div >{front}</div>
 }
-
+// const Card = () => {
+//   const [flipped, set] = useState(false)
+//   const { transform, opacity } = useSpring({
+//     opacity: flipped ? 1 : 0,
+//     transform: `perspective(600px) rotateY(${flipped ? 180 : 0}deg)`,
+//     config: { mass: 5, tension: 500, friction: 80 }
+//   })
+//   return (
+//     <div onClick={() => set(state => !state)}>
+//       <Content style={{ opacity: opacity.interpolate(o => 1 - o), transform }} />
+//       <Content style={{ opacity, transform: transform.interpolate(t => `${t} rotateX(180deg)`) }} />
+//     </div>
+//   )
+// }
 // const TileDrawer =({open})=>{
 //   const [Hover, setHover] = useSpring(()=> ({ width :  0, opacity: 0}))
 //   open ? setHover({width: 100 , opacity: 1}) : setHover({width: 0 , opacity: 0})
