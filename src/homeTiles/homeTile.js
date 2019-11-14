@@ -4,8 +4,8 @@ import styled from 'styled-components'
 import { animated, useSpring } from 'react-spring'
 import {UpdateAction} from './reducers'
 // import ClickNHold from './ClickNHold'
-export const TILE_HEIGHT = 300;
-export const TILE_WIDTH = 200;
+export const TILE_HEIGHT = 250;
+export const TILE_WIDTH = 150;
 export const TITLE_HEIGHT = 50;
 
 const OuterContainer = styled.div`
@@ -16,7 +16,7 @@ const OuterContainer = styled.div`
 const HomeTile = styled(animated.div)`
   pointer-events: none;
   position: absolute;
-  width: 200px;
+  width: ${TILE_WIDTH}px;
   color: white;
   border-style: solid;
   border-width: thin;
@@ -59,7 +59,7 @@ const Title = styled.div`
 
 const TileButton = styled.button`
   height: ${TITLE_HEIGHT}px;
-  width: 200px;
+  width: ${TILE_WIDTH}px;
   line-height: 50px;
   border-top: thin solid white;
   text-align: center;
@@ -96,6 +96,7 @@ const titlePress = (click=()=>{}, held=()=>{}, released=()=>{})=>{
     return {
       onMouseDown: ()=>held(),
       onMouseUp: ()=>released(),
+      onMouseLeave: ()=>released(),
       onClick: ()=>click(),
       onTouchStart: () => held(),
       onTouchEnd: () => released(),

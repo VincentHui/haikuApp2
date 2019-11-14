@@ -1,9 +1,10 @@
 import { animated } from 'react-spring'
 import React from 'react';
+import {TILE_WIDTH} from '../homeTiles/homeTile'
 
 export const AnimatedGhost =(height)=>
     <animated.svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"  x="0px" y="0px"
-	 width="200px" height={height} viewBox="284 362 200 300" enableBackground="new 284 362 200 300" >
+	 width={TILE_WIDTH} height={height} viewBox="284 362 200 300" enableBackground="new 284 362 200 300" >
         <g display="none">
             <g display="inline">
                 <circle stroke="#999999" strokeWidth="0.5197" strokeMiterlimit="10" cx="382.195" cy="416.184" r="353.756"/>
