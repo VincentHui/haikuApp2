@@ -61,6 +61,7 @@ const TileButton = styled.button`
   height: ${TITLE_HEIGHT}px;
   width: ${TILE_WIDTH}px;
   line-height: 50px;
+  font-size: calc(10px + 2vmin);
   border-top: thin solid white;
   text-align: center;
   vertical-align: middle;
@@ -92,30 +93,54 @@ const TileButton = styled.button`
 //   };
 // }
 
-const titlePress = (click=()=>{}, held=()=>{}, released=()=>{})=>{
+const titlePress = ( click=(ev)=>{}, held=(ev)=>{}, released=(ev)=>{})=>{
     return {
-      onMouseDown: ()=>held(),
-      onMouseUp: ()=>released(),
-      onMouseLeave: ()=>released(),
-      onClick: ()=>click(),
-      onTouchStart: () => held(),
-      onTouchEnd: () => released(),
+      onMouseDown: (ev)=>held(ev),
+      onMouseUp: (ev)=>released(ev),
+      onMouseLeave: (ev)=>released(ev),
+      onClick: (ev)=>click(ev),
+      onTouchStart: (ev) => held(ev),
+      onTouchEnd: (ev) => released(ev),
   };
 }
 
+const Back = ({content, setScale, flipped})=> {
+  // const [MouseScale, setMouseScale] = useState(1)
+  // const { transform, opacity, height, scale } = useSpring({
+  //   transform: `scale(${MouseScale})`,
+  //   config: { mass: 5, tension: 500, friction: 60 }
+  // })
+  const inputFunctions = titlePress(
+    (ev) => {ev.stopPropagation(); }, 
+    (ev) => {ev.stopPropagation(); setScale(1.05)}, 
+    (ev) => {ev.stopPropagation(); setScale(1.0)})
+  return(<>
+  <Content
+    // style={{pointerEvents:'auto'}}
+    // onClick={(ev)=> {
+    //   ev.stopPropagation()
+    //   toogleFlipped(false)
+    // }} 
+    >
+    {content}
+  </Content>
+  <TileButton 
+    {...inputFunctions}
+    style={{pointerEvents:flipped? 'auto': 'none'}}>GO >></TileButton>
+</>)}
+
 const InitialTile = ({title,content})=>{
   const [flipped,toogleFlipped] = useState(false)
-  const [MouseScale, setMouseScale] = useState(1)
+  const [MouseScale, setMouseScale] = useState(1.0)
   const inputFunctions = titlePress(() => toogleFlipped(!flipped), () => setMouseScale(0.7), () => setMouseScale(1.0))
-  const { transform, opacity, height, scale } = useSpring({
+  const { transform, opacity, height } = useSpring({
     opacity: flipped ? 1 : 0,
     transform: `perspective(600px) rotateY(${flipped ? 180 : 0}deg) scale(${MouseScale})`,
-    height : flipped ? TILE_HEIGHT : 0,
-    scale : flipped ? 1 : 1,
+    height : flipped ? TILE_HEIGHT : 0, 
     config: { mass: 5, tension: 500, friction: 60 }
   })
   const front =  <><Content>{content}</Content><Title>{title}</Title></>
-  const back = <><Content>{content}</Content><TileButton style={{pointerEvents:'auto'}}></TileButton></>
+  
   return(
     <OuterContainer {...inputFunctions}>
       <TileContainer>
@@ -124,7 +149,7 @@ const InitialTile = ({title,content})=>{
           {front}
         </HomeTile>
         <HomeTile style={{ height, opacity, transform: transform.interpolate(t => `${t} rotateY(180deg)`) }}>
-          {back}
+          <Back content={content} setScale={setMouseScale} flipped={flipped}/>
         </HomeTile>
       </TileContainer>
     </OuterContainer>
