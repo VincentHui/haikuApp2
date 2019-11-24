@@ -3,19 +3,17 @@ import styled from 'styled-components'
 import {connect} from 'react-redux'
 import { useTrail, animated } from 'react-spring'
 import { ConnectedTile, TILE_HEIGHT, TITLE_HEIGHT } from './homeTiles/homeTile'
-// import { createStore } from 'redux-react'
-import { homeTiles, UpdateAction } from '../src/homeTiles/reducers'
+import reducer  from './reducer'
 import { createStore, applyMiddleware } from "redux";
 import logger from 'redux-logger'
 import { Provider } from 'react-redux'
-// import TransitionMenu from './transition/TransitionMenu'
-const store = createStore(homeTiles, applyMiddleware(logger))
+const store = createStore(reducer, applyMiddleware(logger))
 const AppParent = styled.div`
   user-select: none;
   text-align: center;
   background-color: #282c34;
   font-size: calc(10px + 2vmin);
-  font-family:Roboto;
+  font-family:Roboto;  
   text-transform: uppercase;
 `
 const HomeContainer = styled.div`
@@ -26,7 +24,7 @@ const HomeContainer = styled.div`
   justify-content: center;
 `
 
-const tiles = store.getState()
+// const tiles = store.getState()
 // store.dispatch(UpdateAction(true, 'FIREFLY'));
 const config = { mass: 5, tension: 2000, friction: 350 }
 function App() {
@@ -41,10 +39,10 @@ function App() {
   );
 }
 
-const Home =({tiles})=>{
+const Home =({tiles, selectedTile})=>{
   const trail = useTrail(tiles.length, {
     config,
-    opacity: 1 ,
+    opacity: selectedTile===null ? 1 : 0.5,
     x:  0 ,
     height: TILE_HEIGHT ,
     svgHeight: TILE_HEIGHT-TITLE_HEIGHT,
@@ -52,11 +50,12 @@ const Home =({tiles})=>{
   })
 
   return (<HomeContainer>
-  {trail.map(({ x, height,svgHeight, ...rest }, index) => (
+  {trail.map(({ x, svgHeight, ...rest }, index) => (
     <animated.div
       key={tiles[index].title}
-      style={{ ...rest, transform: x.interpolate(x => `translate3d(0,${x}px,0)`) }}>
-        <ConnectedTile title={tiles[index].title} 
+      style={{ ...rest, transform: x.interpolate(x => `translate3d(${x}px,0,0)`) }}>
+        <ConnectedTile 
+          title={tiles[index].title} 
           content={tiles[index].icon(svgHeight)}
           />
     </animated.div>
@@ -65,7 +64,8 @@ const Home =({tiles})=>{
 }
 
 const mapStateToProps = (state) => ({
-  tiles: state
+  tiles: state.homeTiles,
+  selectedTile : state.SelectedTile
 })
 const ConnectedHome = connect(
   mapStateToProps)

@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useCallback} from 'react';
+import React, { useState} from 'react';
 import {connect} from 'react-redux'
 import styled from 'styled-components'
 import { animated, useSpring } from 'react-spring'
-import {UpdateAction} from './reducers'
+import { UpdateAction, SelectAction, UnSelectAction, SelectedTile } from './reducers'
 // import ClickNHold from './ClickNHold'
 export const TILE_HEIGHT = 250;
 export const TILE_WIDTH = 150;
@@ -67,32 +67,6 @@ const TileButton = styled.button`
   vertical-align: middle;
 `
 
-// export function useLongPress(callback = () => {}, ms = 300, 
-//   down = ()=>{ }, up = () => {}) {
-//   const [startLongPress, setStartLongPress] = useState(false);
-
-//   useEffect(() => {
-//     let timerId;
-//     if (startLongPress) {
-//       timerId = setTimeout(callback, ms);
-//     } else {
-//       clearTimeout(timerId);
-//     }
-
-//     return () => {
-//       clearTimeout(timerId);
-//     };
-//   }, [startLongPress]);
-
-//   return {
-//     onMouseDown: () => {setStartLongPress(true); down()},
-//     onMouseUp: () => {setStartLongPress(false); up()},
-//     onMouseLeave: () => {setStartLongPress(false);up()},
-//     // onTouchStart: () => setStartLongPress(true),
-//     // onTouchEnd: () => setStartLongPress(false),
-//   };
-// }
-
 const titlePress = ( click=(ev)=>{}, held=(ev)=>{}, released=(ev)=>{})=>{
     return {
       onMouseDown: (ev)=>held(ev),
@@ -104,24 +78,13 @@ const titlePress = ( click=(ev)=>{}, held=(ev)=>{}, released=(ev)=>{})=>{
   };
 }
 
-const Back = ({content, setScale, flipped})=> {
-  // const [MouseScale, setMouseScale] = useState(1)
-  // const { transform, opacity, height, scale } = useSpring({
-  //   transform: `scale(${MouseScale})`,
-  //   config: { mass: 5, tension: 500, friction: 60 }
-  // })
+const Back = ({height, content, setScale, flipped, setSelect})=> {
   const inputFunctions = titlePress(
-    (ev) => {ev.stopPropagation(); }, 
+    (ev) => {ev.stopPropagation(); setSelect()}, 
     (ev) => {ev.stopPropagation(); setScale(1.05)}, 
     (ev) => {ev.stopPropagation(); setScale(1.0)})
   return(<>
-  <Content
-    // style={{pointerEvents:'auto'}}
-    // onClick={(ev)=> {
-    //   ev.stopPropagation()
-    //   toogleFlipped(false)
-    // }} 
-    >
+  <Content>
     {content}
   </Content>
   <TileButton 
@@ -129,14 +92,14 @@ const Back = ({content, setScale, flipped})=> {
     style={{pointerEvents:flipped? 'auto': 'none'}}>GO >></TileButton>
 </>)}
 
-const InitialTile = ({title,content})=>{
+const InitialTile = ({title,content,selectCard,unSelectCard,tile,SelectedTile})=>{
   const [flipped,toogleFlipped] = useState(false)
   const [MouseScale, setMouseScale] = useState(1.0)
   const inputFunctions = titlePress(() => toogleFlipped(!flipped), () => setMouseScale(0.7), () => setMouseScale(1.0))
-  const { transform, opacity, height } = useSpring({
+  const { transform, opacity, TileHeight } = useSpring({
     opacity: flipped ? 1 : 0,
     transform: `perspective(600px) rotateY(${flipped ? 180 : 0}deg) scale(${MouseScale})`,
-    height : flipped ? TILE_HEIGHT : 0, 
+    TileHeight : flipped ? TILE_HEIGHT : 0, 
     config: { mass: 5, tension: 500, friction: 60 }
   })
   const front =  <><Content>{content}</Content><Title>{title}</Title></>
@@ -144,51 +107,32 @@ const InitialTile = ({title,content})=>{
   return(
     <OuterContainer {...inputFunctions}>
       <TileContainer>
-        <HomeTile style={{ height: height.interpolate(h => TILE_HEIGHT -h),
+        <HomeTile style={{ height: TileHeight.interpolate(h => TILE_HEIGHT -h),
            opacity: opacity.interpolate(o => 1 - o), transform }}>
           {front}
         </HomeTile>
-        <HomeTile style={{ height, opacity, transform: transform.interpolate(t => `${t} rotateY(180deg)`) }}>
-          <Back content={content} setScale={setMouseScale} flipped={flipped}/>
+        <HomeTile style={{ height:TileHeight, opacity, transform: transform.interpolate(t => `${t} rotateY(180deg)`) }}>
+          <Back 
+            content={content} 
+            setScale={setMouseScale} 
+            flipped={flipped} 
+            setSelect={()=>SelectedTile===null ? selectCard(tile) : unSelectCard() }/>
         </HomeTile>
       </TileContainer>
     </OuterContainer>
    )  
 }
 const mapStateToProps = (state, props) => ({
-  flipped: state.filter(tile=>tile.title===props.title)[0].flipped
+  tile: state.homeTiles.filter(tile=>tile.title===props.title)[0],
+  SelectedTile : state.SelectedTile
 })
 const mapDispatchToProps = (dispatch) => ({
-  toogleFlipped: (flipped,title) => dispatch(UpdateAction(flipped, title))
+  toogleFlipped: (flipped,title) => dispatch(UpdateAction(flipped, title)),
+  selectCard: (toSelect) => dispatch(SelectAction(toSelect)),
+  unSelectCard: ()=>dispatch(UnSelectAction())
 })
 export const ConnectedTile = connect(
   mapStateToProps,
   mapDispatchToProps)
   (InitialTile)
 
-const CardFlipper = ({flipped, front, back, toggleFlipped})=>{
-  // const trans2 = (y,s) => `rotateY(${y}deg)`
-  // const [RotateProps, set] = useSpring(() => ({ xys: [20, 1], config: { mass: 5, tension: 400, friction: 40 } }))
-  // flipped ? set({xys:[180,0]}) : set({xys:[0,0]})
-  console.log(flipped)
-  return flipped ? <div onClick={()=>flipped && toggleFlipped()}>{back}</div> : <div >{front}</div>
-}
-// const Card = () => {
-//   const [flipped, set] = useState(false)
-//   const { transform, opacity } = useSpring({
-//     opacity: flipped ? 1 : 0,
-//     transform: `perspective(600px) rotateY(${flipped ? 180 : 0}deg)`,
-//     config: { mass: 5, tension: 500, friction: 80 }
-//   })
-//   return (
-//     <div onClick={() => set(state => !state)}>
-//       <Content style={{ opacity: opacity.interpolate(o => 1 - o), transform }} />
-//       <Content style={{ opacity, transform: transform.interpolate(t => `${t} rotateX(180deg)`) }} />
-//     </div>
-//   )
-// }
-// const TileDrawer =({open})=>{
-//   const [Hover, setHover] = useSpring(()=> ({ width :  0, opacity: 0}))
-//   open ? setHover({width: 100 , opacity: 1}) : setHover({width: 0 , opacity: 0})
-//   return <Drawer style={Hover}/>
-// }
