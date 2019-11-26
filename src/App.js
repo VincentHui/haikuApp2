@@ -42,7 +42,7 @@ function App() {
 const Home =({tiles, selectedTile})=>{
   const trail = useTrail(tiles.length, {
     config,
-    opacity: selectedTile===null ? 1 : 0.5,
+    opacity: 1 ,
     x:  0 ,
     height: TILE_HEIGHT ,
     svgHeight: TILE_HEIGHT-TITLE_HEIGHT,

@@ -78,7 +78,7 @@ const titlePress = ( click=(ev)=>{}, held=(ev)=>{}, released=(ev)=>{})=>{
   };
 }
 
-const Back = ({height, content, setScale, flipped, setSelect})=> {
+const Back = ({content, setScale, flipped, setSelect})=> {
   const inputFunctions = titlePress(
     (ev) => {ev.stopPropagation(); setSelect()}, 
     (ev) => {ev.stopPropagation(); setScale(1.05)}, 
@@ -93,12 +93,13 @@ const Back = ({height, content, setScale, flipped, setSelect})=> {
 </>)}
 
 const InitialTile = ({title,content,selectCard,unSelectCard,tile,SelectedTile})=>{
+  const SelectedScale = SelectedTile ===null ? 0 : SelectedTile.title === title ? 0.4 : -0.5;
   const [flipped,toogleFlipped] = useState(false)
   const [MouseScale, setMouseScale] = useState(1.0)
   const inputFunctions = titlePress(() => toogleFlipped(!flipped), () => setMouseScale(0.7), () => setMouseScale(1.0))
   const { transform, opacity, TileHeight } = useSpring({
     opacity: flipped ? 1 : 0,
-    transform: `perspective(600px) rotateY(${flipped ? 180 : 0}deg) scale(${MouseScale})`,
+    transform: `perspective(600px) rotateY(${flipped ? 180 : 0}deg) scale(${MouseScale + SelectedScale})`,
     TileHeight : flipped ? TILE_HEIGHT : 0, 
     config: { mass: 5, tension: 500, friction: 60 }
   })
