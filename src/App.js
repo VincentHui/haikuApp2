@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components'
 import {connect} from 'react-redux'
-import { useTrail, animated } from 'react-spring'
+import {SelectedTile} from './SelectedTile/selectedTile' 
+import { useTrail, animated, useSpring } from 'react-spring'
 import { ConnectedTile, TILE_HEIGHT, TITLE_HEIGHT } from './homeTiles/homeTile'
 import reducer  from './reducer'
 import { createStore, applyMiddleware } from "redux";
@@ -23,16 +24,28 @@ const HomeContainer = styled.div`
   align-items: center;
   justify-content: center;
 `
+const Nav = {
+  HOME:'HOME',
+  SELECTED:'SELECTED'
+}
 
-// const tiles = store.getState()
-// store.dispatch(UpdateAction(true, 'FIREFLY'));
 const config = { mass: 5, tension: 2000, friction: 350 }
 function App() {
-
+  const { x} = useSpring({
+    x:  0 ,
+    config: { mass: 10, tension: 500, friction: 250 },
+    from: { x: -300}
+  })
   return (
     <Provider store={store}>
       <AppParent>
-        <ConnectedHome />
+        <animated.div
+          style={{transform: x.interpolate(x => `translate3d(${x}px,0,0)`)}}>
+          <ConnectedHome />
+        </animated.div>
+        <animated.div>
+          <SelectedTile />
+        </animated.div>
       </AppParent>
     </Provider>
 
