@@ -11,7 +11,7 @@ export const TITLE_HEIGHT = 50;
 const OuterContainer = styled.div`
   height: ${TILE_HEIGHT}px;
   width: ${TILE_WIDTH}px;
-  margin: 20px
+
 `
 const HomeTile = styled(animated.div)`
   pointer-events: none;
