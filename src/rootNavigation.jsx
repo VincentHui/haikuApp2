@@ -10,16 +10,10 @@ export const RootNavigation = ()=>{
         from: { x: -300}
       })
     return(
-        <div>
-            <animated.div
-                style={{transform: x.interpolate(x => `translate3d(${x}px,0,0)`)}}>
-                <ConnectedHome />
-                <SelectedTile />
-            </animated.div>
-            {/* <animated.div
-                style={{transform: x.interpolate(x => `translate3d(${-300 - x}px,0,0)`)}}>
-
-            </animated.div> */}
-        </div>
+        <animated.div 
+            style={{width:'200vw', transform: x.interpolate(x => `translate3d(${x}px,0,0)`)}}>
+            <ConnectedHome />
+            {/* <SelectedTile /> */}
+        </animated.div>
     )
 }

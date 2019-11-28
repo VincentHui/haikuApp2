@@ -6,12 +6,15 @@ import { ConnectedTile, TILE_HEIGHT, TITLE_HEIGHT } from './homeTile'
 const config = { mass: 5, tension: 2000, friction: 350 }
 const HomeContainer = styled.div`
   min-height: 100vh;
+  max-width: 800px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
 `
-
+const HomeTiles = styled(animated.div)`
+    margin: 20px;
+`
 const Home =({tiles, selectedTile})=>{
     const trail = useTrail(tiles.length, {
       config,
@@ -24,14 +27,14 @@ const Home =({tiles, selectedTile})=>{
   
     return (<HomeContainer>
     {trail.map(({ x, svgHeight, ...rest }, index) => (
-      <animated.div
+      <HomeTiles
         key={tiles[index].title}
-        style={{ ...rest, margin: 20, transform: x.interpolate(x => `translate3d(${x}px,0,0)`) }}>
+        style={{ ...rest, transform: x.interpolate(x => `translate3d(${x}px,0,0)`) }}>
           <ConnectedTile 
             title={tiles[index].title} 
             content={tiles[index].icon(svgHeight)}
             />
-      </animated.div>
+      </HomeTiles>
     ))}
     </HomeContainer>)   
   }

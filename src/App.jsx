@@ -13,6 +13,7 @@ const AppParent = styled.div`
   font-size: calc(10px + 2vmin);
   font-family:Roboto;  
   text-transform: uppercase;
+  display:flex;
 `
 
 function App() {
