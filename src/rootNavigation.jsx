@@ -13,6 +13,9 @@ const RootContainer = styled(animated.div)`
     display:flex;
     flex-direction:column;
 `
+const Intro = ({})=>{
+    return <div></div>
+}
 
 export const NavContainer = ({selectedTile})=>{
     const { x, opacity} = useSpring({
@@ -23,9 +26,11 @@ export const NavContainer = ({selectedTile})=>{
       })
     return(
         <>
-        <RootContainer
-            style={{opacity:opacity, transform: x.interpolate(x => `translate3d(${x}px,0,0)`)}}>
-            <ConnectedHome />
+        <RootContainer>
+            <animated.div style={{opacity:opacity, transform: x.interpolate(x => `translate3d(${x}px,0,0)`)}}>
+                <ConnectedHome />
+            </animated.div>
+
         </RootContainer>
         <Modal/>
         </>

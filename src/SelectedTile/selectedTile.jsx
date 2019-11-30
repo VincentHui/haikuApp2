@@ -11,17 +11,18 @@ const Page = styled(animated.div)`
 const SelectedColumns = styled.div`
     width: 100%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-items: center;
 `
 
 const SelectedHeader = styled.div`
     color: white;
-    height: 100px;
+    height: 70px;
     width: 100%;
     border-bottom: thin solid white;
     display: flex;
     align-items: flex-start;
+    justify-items: center;
     flex-direction: row;
 `
 const BackButton = styled.button`
@@ -29,9 +30,8 @@ const BackButton = styled.button`
     height:100%;
 `
 
-export const SelectedTile = ({closeModal, unSelectCard})=>{
+export const SelectedTile = ({closeModal, unSelectCard, title, icon})=>{
 
-    //   console.log("TILE")
     return<Page>
         <SelectedColumns >
             <SelectedHeader>
@@ -39,13 +39,23 @@ export const SelectedTile = ({closeModal, unSelectCard})=>{
                     closeModal();
                     unSelectCard();
                     }}></BackButton>
-                <div style={{textAlign:'left', marginLeft:20}}>A TITLE</div>
+                <div style={{textAlign:'left', marginLeft:20}}>{title} - STATISTICS - DATE</div>
+                {/* <div style={{textAlign:'left', marginLeft:20}}>A TITLE</div> */}
             </SelectedHeader>
+            <div style={{  
+                position: 'relative',
+                color: 'white',
+                borderStyle: 'solid',
+                borderWidth: 'thin',
+                width: 500,
+                height: 500
+                }}>{icon(200)}</div>
         </SelectedColumns>
     </Page>
 }
 const mapStateToProps = (state) => ({
-    open : state.SelectedTile
+    title : state.SelectedTile.title,
+    icon : state.SelectedTile.icon
   })
   const mapDispatchToProps = (dispatch) => ({
     closeModal:()=>dispatch(CloseModalAction()),

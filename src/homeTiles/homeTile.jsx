@@ -94,13 +94,13 @@ const Back = ({content, setScale, flipped, setSelect})=> {
 </>)}
 
 const InitialTile = ({title,content,selectCard,unSelectCard,tile,Selected, openModal})=>{
-  const SelectedScale = Selected ===null ? 0 : Selected.title === title ? 0.15 : -0.5;
+  const SelectedScale = Selected ===null ? 0 : Selected.title === title ? 0.15 : -1.0;
   const [flipped,toogleFlipped] = useState(false)
   const [MouseScale, setMouseScale] = useState(1.0)
   const inputFunctions = titlePress(() => toogleFlipped(!flipped), () => setMouseScale(0.7), () => setMouseScale(1.0))
   const { transform, opacity, TileHeight } = useSpring({
     opacity: flipped ? 1 : 0,
-    transform: `perspective(600px) rotateY(${flipped ? 180 : 0}deg) scale(${MouseScale + SelectedScale})`,
+    transform: `perspective(600px) rotateY(${flipped ? 180 : 0}deg) scale(${MouseScale + SelectedScale + (flipped ? 0.1 : -0.1)})`,
     TileHeight : flipped ? TILE_HEIGHT : 0, 
     config: { mass: 5, tension: 500, friction: 60 }
   })

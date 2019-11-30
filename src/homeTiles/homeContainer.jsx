@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 
 import { ConnectedTile, TILE_HEIGHT, TITLE_HEIGHT } from './homeTile'
 const config = { mass: 5, tension: 2000, friction: 350 }
-const HomeContainer = styled.div`
+const HomeContainer = styled(animated.div)`
   max-width: 100vw;
   min-height: 100vh;
   display: flex;
