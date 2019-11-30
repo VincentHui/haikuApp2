@@ -2,9 +2,8 @@ import React, { useState} from 'react';
 import styled from 'styled-components'
 
 const Page = styled.div`
-    min-height: 100vh
-
-
+    width:100vw;
+    background: #282c34;
 `
 
 const SelectedColumns = styled.div`
@@ -18,8 +17,6 @@ const SelectedHeader = styled.div`
     color: white;
     height: 100px;
     width: 100%;
-    // border-style: solid;
-    // border-width: thin;
     border-bottom: thin solid white;
     display: flex;
     align-items: flex-end;

@@ -2,11 +2,12 @@ import React, { useState} from 'react'
 import styled from 'styled-components'
 import { useTrail, animated } from 'react-spring'
 import {connect} from 'react-redux'
+
 import { ConnectedTile, TILE_HEIGHT, TITLE_HEIGHT } from './homeTile'
 const config = { mass: 5, tension: 2000, friction: 350 }
 const HomeContainer = styled.div`
+  max-width: 100vw;
   min-height: 100vh;
-  max-width: 800px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
