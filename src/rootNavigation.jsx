@@ -1,9 +1,10 @@
 import React from 'react';
 import { animated, useSpring, config } from 'react-spring'
+import {connect} from 'react-redux'
 // import { Parallax, ParallaxLayer } from 'react-spring/renderprops-addons'
 
 import {ConnectedHome} from './homeTiles/homeContainer'
-import {SelectedTile} from './SelectedTile/selectedTile'
+// import {SelectedTile} from './SelectedTile/selectedTile'
 import {Modal} from './modal/modal'
 import styled from 'styled-components'
 
@@ -13,20 +14,26 @@ const RootContainer = styled(animated.div)`
     flex-direction:column;
 `
 
-export const RootNavigation = ()=>{
+export const NavContainer = ({selectedTile})=>{
     const { x, opacity} = useSpring({
-        x:  0 ,
-        opacity: 1,
+        x:  selectedTile===null ? 0 : -window.innerWidth,
+        opacity: selectedTile===null ? 1 : 0,
         config: {...config.slow, clamp:true },
-        from: { x: -300, opacity: 0},
-        onRest:()=>console.log('REST')
+        from: { x: -window.innerWidth, opacity: 0},
       })
     return(
-        
+        <>
         <RootContainer
             style={{opacity:opacity, transform: x.interpolate(x => `translate3d(${x}px,0,0)`)}}>
             <ConnectedHome />
-            <Modal/>
         </RootContainer>
+        <Modal/>
+        </>
     )
 }
+const mapStateToProps = (state) => ({
+    selectedTile : state.SelectedTile
+  })
+export const RootNavigation = connect(
+    mapStateToProps)
+    (NavContainer)

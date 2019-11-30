@@ -2,7 +2,8 @@ import React, { useState} from 'react';
 import {connect} from 'react-redux'
 import styled from 'styled-components'
 import { animated, useSpring } from 'react-spring'
-import { UpdateAction, SelectAction, UnSelectAction, SelectedTile } from './reducers'
+import { UpdateAction, SelectAction, UnSelectAction, OpenModalAction } from './reducers'
+import {SelectedTileMain} from '../SelectedTile/selectedTile'
 // import ClickNHold from './ClickNHold'
 export const TILE_HEIGHT = 250;
 export const TILE_WIDTH = 150;
@@ -92,8 +93,8 @@ const Back = ({content, setScale, flipped, setSelect})=> {
     style={{pointerEvents:flipped? 'auto': 'none'}}>GO >></TileButton>
 </>)}
 
-const InitialTile = ({title,content,selectCard,unSelectCard,tile,SelectedTile})=>{
-  const SelectedScale = SelectedTile ===null ? 0 : SelectedTile.title === title ? 0.15 : -0.5;
+const InitialTile = ({title,content,selectCard,unSelectCard,tile,Selected, openModal})=>{
+  const SelectedScale = Selected ===null ? 0 : Selected.title === title ? 0.15 : -0.5;
   const [flipped,toogleFlipped] = useState(false)
   const [MouseScale, setMouseScale] = useState(1.0)
   const inputFunctions = titlePress(() => toogleFlipped(!flipped), () => setMouseScale(0.7), () => setMouseScale(1.0))
@@ -117,7 +118,10 @@ const InitialTile = ({title,content,selectCard,unSelectCard,tile,SelectedTile})=
             content={content} 
             setScale={setMouseScale} 
             flipped={flipped} 
-            setSelect={()=>SelectedTile===null ? selectCard(tile) : unSelectCard() }/>
+            setSelect={()=>{
+              Selected===null ? selectCard(tile) : unSelectCard();
+              openModal(({})=><SelectedTileMain/>);
+              }}/>
         </HomeTile>
       </TileContainer>
     </OuterContainer>
@@ -125,12 +129,13 @@ const InitialTile = ({title,content,selectCard,unSelectCard,tile,SelectedTile})=
 }
 const mapStateToProps = (state, props) => ({
   tile: state.homeTiles.filter(tile=>tile.title===props.title)[0],
-  SelectedTile : state.SelectedTile
+  Selected : state.SelectedTile
 })
 const mapDispatchToProps = (dispatch) => ({
   toogleFlipped: (flipped,title) => dispatch(UpdateAction(flipped, title)),
   selectCard: (toSelect) => dispatch(SelectAction(toSelect)),
-  unSelectCard: ()=>dispatch(UnSelectAction())
+  unSelectCard: ()=>dispatch(UnSelectAction()),
+  openModal:(toRender)=>dispatch(OpenModalAction(toRender))
 })
 export const ConnectedTile = connect(
   mapStateToProps,

@@ -5,7 +5,9 @@ export const ActionTypes ={
     UPDATE_TILE:'UPDATE_TILE',
     REMOVE_TILE:'REMOVE_TILE',
     SELECT_TILE:'SELECT_TILE',
-    UNSELECT_TILE:'UNSELECT_TILE'
+    UNSELECT_TILE:'UNSELECT_TILE',
+    OPEN_MODAL:'OPEN_MODAL',
+    CLOSE_MODAL:'CLOSE_MODAL'
 }
 export const UpdateAction=(flipped, title)=>
 ({
@@ -27,6 +29,15 @@ export const SelectAction=(toSelect)=>({
 
 export const UnSelectAction=()=>({
     type:ActionTypes.UNSELECT_TILE
+})
+
+export const CloseModalAction=()=>({
+    type:ActionTypes.CLOSE_MODAL
+})
+
+export const OpenModalAction=(toRender)=>({
+    type:ActionTypes.OPEN_MODAL,
+    component:toRender
 })
 
 const initialState = [
@@ -64,4 +75,18 @@ export const SelectedTile =(state=null, action)=>{
             return null
     }
     return state;
+}
+const initialModalState={
+    open:false,
+    component: null
+}
+export const Modal =(state=initialModalState, action)=>{
+    switch (action.type) {
+        case ActionTypes.OPEN_MODAL: 
+            return {open:true, component: action.component}
+        case ActionTypes.CLOSE_MODAL:
+            return {...state, open:false}
+    }
+    return state
+
 }

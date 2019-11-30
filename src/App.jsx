@@ -9,7 +9,6 @@ const store = createStore(reducer, applyMiddleware(logger))
 const AppParent = styled.div`
   user-select: none;
   text-align: center;
-  background-color: #282c34;
   font-size: calc(10px + 2vmin);
   font-family:Roboto;  
   text-transform: uppercase;
