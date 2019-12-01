@@ -2,7 +2,8 @@ import React, { useState} from 'react';
 import styled from 'styled-components'
 import { animated, useSpring, config } from 'react-spring'
 import {connect} from 'react-redux'
-import { CloseModalAction, UnSelectAction } from '../homeTiles/reducers'
+import { CloseModalAction, UnSelectAction, OpenModalAction, ModalNames } from '../homeTiles/reducers'
+import {ConnectedHome} from '../homeTiles/homeContainer'
 const Page = styled(animated.div)`
     width:100vw;
     background: #282c34;
@@ -30,13 +31,14 @@ const BackButton = styled.button`
     height:100%;
 `
 
-export const SelectedTile = ({closeModal, unSelectCard, title, icon})=>{
+export const SelectedTile = ({openModal, unSelectCard, title, icon})=>{
 
     return<Page>
         <SelectedColumns >
             <SelectedHeader>
                 <BackButton onClick={()=>{
-                    closeModal();
+                    console.log('CLICKED')
+                    openModal();
                     unSelectCard();
                     }}></BackButton>
                 <div style={{textAlign:'left', marginLeft:20}}>{title} - STATISTICS - DATE</div>
@@ -54,11 +56,12 @@ export const SelectedTile = ({closeModal, unSelectCard, title, icon})=>{
     </Page>
 }
 const mapStateToProps = (state) => ({
-    title : state.SelectedTile.title,
-    icon : state.SelectedTile.icon
+    title : state.SelectedTile ?  state.SelectedTile.title : '',
+    icon : state.SelectedTile ? state.SelectedTile.icon : ()=>null
   })
   const mapDispatchToProps = (dispatch) => ({
     closeModal:()=>dispatch(CloseModalAction()),
+    openModal:()=>dispatch(OpenModalAction(()=><ConnectedHome/>, ModalNames.HOME)),
     unSelectCard: ()=>dispatch(UnSelectAction())
   })
 export const SelectedTileMain = connect(

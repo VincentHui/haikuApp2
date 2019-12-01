@@ -1,6 +1,7 @@
 import { AnimatedSkull } from '../svg/AnimatedSkull'
 import { AnimatedGhost } from '../svg/AnimatedGhost'
-
+import React from 'react'
+import {ConnectedHome} from './homeContainer'
 export const ActionTypes ={
     UPDATE_TILE:'UPDATE_TILE',
     REMOVE_TILE:'REMOVE_TILE',
@@ -9,6 +10,13 @@ export const ActionTypes ={
     OPEN_MODAL:'OPEN_MODAL',
     CLOSE_MODAL:'CLOSE_MODAL'
 }
+
+export const ModalNames={
+    HOME:'HOME',
+    INTRO:'INTRO',
+    SELECTED:'SELECTED'
+}
+
 export const UpdateAction=(flipped, title)=>
 ({
     type:ActionTypes.UPDATE_TILE,
@@ -35,9 +43,10 @@ export const CloseModalAction=()=>({
     type:ActionTypes.CLOSE_MODAL
 })
 
-export const OpenModalAction=(toRender)=>({
+export const OpenModalAction=(toRender, name)=>({
     type:ActionTypes.OPEN_MODAL,
-    component:toRender
+    component:toRender,
+    name : name
 })
 
 const initialState = [
@@ -77,13 +86,14 @@ export const SelectedTile =(state=null, action)=>{
     return state;
 }
 const initialModalState={
-    open:false,
-    component: null
+    open:true,
+    component: ConnectedHome,
+    name: ModalNames.HOME
 }
 export const Modal =(state=initialModalState, action)=>{
     switch (action.type) {
         case ActionTypes.OPEN_MODAL: 
-            return {open:true, component: action.component}
+            return {open:true, component: action.component, name: action.name}
         case ActionTypes.CLOSE_MODAL:
             return {...state, open:false}
     }

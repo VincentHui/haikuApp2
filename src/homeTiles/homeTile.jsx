@@ -2,7 +2,7 @@ import React, { useState} from 'react';
 import {connect} from 'react-redux'
 import styled from 'styled-components'
 import { animated, useSpring } from 'react-spring'
-import { UpdateAction, SelectAction, UnSelectAction, OpenModalAction } from './reducers'
+import { UpdateAction, SelectAction, UnSelectAction, OpenModalAction, ModalNames } from './reducers'
 import {SelectedTileMain} from '../SelectedTile/selectedTile'
 // import ClickNHold from './ClickNHold'
 export const TILE_HEIGHT = 250;
@@ -135,7 +135,7 @@ const mapDispatchToProps = (dispatch) => ({
   toogleFlipped: (flipped,title) => dispatch(UpdateAction(flipped, title)),
   selectCard: (toSelect) => dispatch(SelectAction(toSelect)),
   unSelectCard: ()=>dispatch(UnSelectAction()),
-  openModal:(toRender)=>dispatch(OpenModalAction(toRender))
+  openModal:(toRender)=>dispatch(OpenModalAction(toRender, ModalNames.SELECTED))
 })
 export const ConnectedTile = connect(
   mapStateToProps,

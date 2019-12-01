@@ -27,9 +27,9 @@ export const NavContainer = ({selectedTile})=>{
     return(
         <>
         <RootContainer>
-            <animated.div style={{opacity:opacity, transform: x.interpolate(x => `translate3d(${x}px,0,0)`)}}>
+            {/* <animated.div style={{opacity:opacity, transform: x.interpolate(x => `translate3d(${x}px,0,0)`)}}>
                 <ConnectedHome />
-            </animated.div>
+            </animated.div> */}
 
         </RootContainer>
         <Modal/>
