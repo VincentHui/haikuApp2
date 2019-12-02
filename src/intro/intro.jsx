@@ -1,5 +1,5 @@
 import React from 'react';
-import { animated, useTrail } from 'react-spring'
+import { animated, useTrail, useSpring} from 'react-spring'
 import {connect} from 'react-redux'
 import styled from 'styled-components'
 import { OpenModalAction, ModalNames } from '../homeTiles/reducers'
@@ -18,14 +18,12 @@ const Mobile = ({ children }) => {
 
 const IntroTile = styled(animated.div)`
     position: absolute;
-    margin-top: 100px
-    height: 300px;
-    width: 500px;
+    max-width: 300px;
     color: white;
     border-style: solid;
     border-width: thin;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     flex-direction: column;
 `
 const Grid= styled.div`
@@ -42,52 +40,77 @@ const CenterFlex=styled(Item)`
     display: flex;
     justify-content: center;
     flex-direction: row;
+    align-items: center;
 `
 const config = { mass: 5, tension: 2000, friction: 350 }
 const Guttering= ({render})=>
     (render && <Item>
         <div style={{height:100}}></div>
     </Item>)
+const introContent =[
+    ({height,opacity, y, roty})=><IntroTile style={{
+        // height:height, 
+        opacity:opacity, 
+        transform:y.interpolate(y => `translate3d(${y}px,0,0)`)}}>
+        {/* <div style={{height:300}}>Vince is working on some shit with you guys in north london</div> */}
+        <div style={{ margin: 50, opacity:0}}>            
+            <div style={ {opacity:0} }>Vince is working on some stuff</div>
+            <div style={ {opacity:0} }>with you guys in north london</div>
+        </div>
+        <TileButton onClick={()=>{}} style={{width:'100%', opacity:0}}>GO ></TileButton>
+    </IntroTile>,
+    ({height,opacity, y})=><IntroTile style={{
+        // height:height, 
+        opacity:opacity, 
+        transform:y.interpolate(y => `translate3d(${y}px,0,0)`)}}>
+        <div style={{ margin: 50}}>
+            <div>Vince is working on some stuff</div>
+            <div style={ {opacity:0} }>with you guys in north london</div>
+        </div>
+        <TileButton onClick={()=>{}} style={{width:'100%', opacity:0}}>GO ></TileButton>
+    </IntroTile>,
+    ({height,opacity, y})=><IntroTile style={{
+        // height:height, 
+        opacity:opacity, 
+        transform:y.interpolate(y => `translate3d(${y}px,0,0)`)}}>
+        <div style={{ margin: 50}}>            
+            <div style={ {opacity:0} }>Vince is working on some stuff</div>
+            <div>with you guys in north london</div>
+        </div>
+        <TileButton onClick={()=>{}} style={{width:'100%', opacity:0}}>GO ></TileButton>
+    </IntroTile>,
+    ({height,opacity, y})=><IntroTile style={{
+        // height:height, 
+        opacity:opacity, 
+        transform:y.interpolate(y => `translate3d(${y}px,0,0)`)}}>
+        <div style={{ margin: 50, opacity:0}}>            
+            <div style={ {opacity:0} }>Vince is working on some stuff</div>
+            <div style={ {opacity:0} }>with you guys in north london</div>
+        </div>
+        <TileButton onClick={()=>{}} style={{width:'100%'}}>GO ></TileButton>
+    </IntroTile>
 
+]
 const Intro =({openModal})=>{
     const isDesktop = useMediaQuery({ minWidth: 992 })
-    const trail = useTrail(9, {
+    const trail = useTrail(introContent.length, {
         config,
+        delay:1000,
         opacity: 1 ,
         y:  0 ,
-        height: 300 ,
-        from: { opacity: 0, y: 500, height: 0},
+        roty:0,
+        from: { opacity: 0, y: 200, roty:180},
       })
+ 
     return <div style={{width:'100vw'}}>
-        {/* <div style={{flexGrow:1}}/> */}
-        {/* <IntroTile style={{flexGrow:2}}/>
-        <Desktop>Desktop or laptop</Desktop>
-        <Tablet>Tablet</Tablet>
-        <Mobile>Mobile</Mobile> */}
         <Grid style={{minHeight:'100vh'}}>
             <Guttering render={isDesktop}/>
             <CenterFlex col={3}>
-                {trail.map(({height, opacity, y},index)=>
-                <IntroTile key={index} style={{
-                    height:height, 
-                    opacity:opacity, 
-                    transform:y.interpolate(y => `translate3d(${y}px,0,0)`)}}>
-                    <div style={{height:300}}>Vince is working on some shit with you guys in north london</div>
-                    <TileButton onClick={()=>openModal()} style={{width:'100%'}}>GO ></TileButton>
-                </IntroTile>)}
-                {/* <IntroTile>
-                    <div style={{height:300}}>Vince is working on some shit with you guys in north london</div>
-                    <TileButton onClick={()=>openModal()} style={{width:'100%'}}>GO ></TileButton>
-                </IntroTile>
-                <IntroTile>
-                    <div style={{height:300}}>Vince is working on some shit with you guys in north london</div>
-                    <TileButton onClick={()=>openModal()} style={{width:'100%'}}>GO ></TileButton>
-                </IntroTile> */}
+                {trail.map(({...props},index)=>introContent[index](props))}
+                
             </CenterFlex>
             <Guttering render={isDesktop}/>
         </Grid>
-        {/* <Default>Not mobile (desktop or laptop or tablet)</Default> */}
-        {/* <div style={{flexGrow:1}}/> */}
     </div>
 }
 const mapStateToProps = (state) => ({
