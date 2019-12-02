@@ -2,7 +2,7 @@ import React, { useState} from 'react';
 import styled from 'styled-components'
 import { animated, useSpring, config } from 'react-spring'
 import {connect} from 'react-redux'
-import { CloseModalAction, UnSelectAction, OpenModalAction, ModalNames } from '../homeTiles/reducers'
+import { UnSelectAction, OpenModalAction, ModalNames } from '../homeTiles/reducers'
 import {ConnectedHome} from '../homeTiles/homeContainer'
 const Page = styled(animated.div)`
     width:100vw;
@@ -60,8 +60,7 @@ const mapStateToProps = (state) => ({
     icon : state.SelectedTile ? state.SelectedTile.icon : ()=>null
   })
   const mapDispatchToProps = (dispatch) => ({
-    closeModal:()=>dispatch(CloseModalAction()),
-    openModal:()=>dispatch(OpenModalAction(()=><ConnectedHome/>, ModalNames.HOME)),
+    openModal:()=>dispatch(OpenModalAction(ModalNames.HOME)),
     unSelectCard: ()=>dispatch(UnSelectAction())
   })
 export const SelectedTileMain = connect(

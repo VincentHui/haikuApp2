@@ -58,7 +58,7 @@ const Title = styled.div`
   user-select:none;
 `
 
-const TileButton = styled.button`
+export const TileButton = styled.button`
   height: ${TITLE_HEIGHT}px;
   width: ${TILE_WIDTH}px;
   line-height: 50px;
@@ -135,7 +135,7 @@ const mapDispatchToProps = (dispatch) => ({
   toogleFlipped: (flipped,title) => dispatch(UpdateAction(flipped, title)),
   selectCard: (toSelect) => dispatch(SelectAction(toSelect)),
   unSelectCard: ()=>dispatch(UnSelectAction()),
-  openModal:(toRender)=>dispatch(OpenModalAction(toRender, ModalNames.SELECTED))
+  openModal:(toRender)=>dispatch(OpenModalAction(ModalNames.SELECTED))
 })
 export const ConnectedTile = connect(
   mapStateToProps,

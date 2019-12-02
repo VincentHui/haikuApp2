@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import { animated, useSpring, config } from 'react-spring'
 import {ConnectedHome} from '../homeTiles/homeContainer'
 import {SelectedTileMain} from '../SelectedTile/selectedTile'
+import {IntroMain} from '../intro/intro'
 import { ModalNames } from '../homeTiles/reducers'
 const ModalOverlay = styled(animated.div)`
     position: fixed;
@@ -30,30 +31,26 @@ const ModalChild = ({children, open})=>{
 }
 const Modals=[
     {name:ModalNames.SELECTED, toRender:()=><SelectedTileMain/>},
-    {name:ModalNames.HOME, toRender:()=><ConnectedHome/>}]
+    {name:ModalNames.HOME, toRender:()=><ConnectedHome/>},
+    {name:ModalNames.INTRO, toRender:()=><IntroMain/>}]
 const ModalSwitch = ({modalName})=>
     <>
-        {console.log('modalName',modalName)}
-
         {Modals.map(obj=>
             <ModalOverlay key={obj.name} style={{pointerEvents:modalName===obj.name ? 'auto':'none'}}>
                 <ModalChild open={modalName===obj.name}>
                     <obj.toRender/>
-                    {console.log('obj',obj)}
                 </ModalChild>
             </ModalOverlay>
             )}
     </>
     
 
-const ModalRoot =({open, Component, modalName})=>{
+const ModalRoot =({modalName})=>{
     return <ModalSwitch modalName={modalName}/>
 
 }
 
 const mapStateToProps = (state) => ({
-    open : state.Modal.open,
-    Component : state.Modal.component,
     modalName : state.Modal.name
   })
   export const Modal = connect(
