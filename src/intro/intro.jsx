@@ -48,46 +48,51 @@ const Guttering= ({render})=>
         <div style={{height:100}}></div>
     </Item>)
 const introContent =[
-    ({height,opacity, y, roty})=><IntroTile style={{
-        // height:height, 
+    ({height,opacity, y}, onclick)=><IntroTile style={{
         opacity:opacity, 
         transform:y.interpolate(y => `translate3d(${y}px,0,0)`)}}>
-        {/* <div style={{height:300}}>Vince is working on some shit with you guys in north london</div> */}
         <div style={{ margin: 50, opacity:0}}>            
             <div style={ {opacity:0} }>Vince is working on some stuff</div>
             <div style={ {opacity:0} }>with you guys in north london</div>
         </div>
-        <TileButton onClick={()=>{}} style={{width:'100%', opacity:0}}>GO ></TileButton>
+        <TileButton onClick={()=>onclick()} style={{width:'100%', opacity:0}}>GO ></TileButton>
     </IntroTile>,
-    ({height,opacity, y})=><IntroTile style={{
-        // height:height, 
+    ({height,opacity, y}, onclick)=><IntroTile style={{
+        opacity:opacity, 
+        transform:y.interpolate(y => `translate3d(${y}px,0,0)`)}}>
+        <div style={{ margin: 50, opacity:0}}>            
+            <div style={ {opacity:0} }>Vince is working on some stuff</div>
+            <div style={ {opacity:0} }>with you guys in north london</div>
+        </div>
+        <TileButton onClick={()=>onclick()} style={{width:'100%', opacity:0}}>GO ></TileButton>
+    </IntroTile>,
+    ({height,opacity, y}, onclick)=><IntroTile style={{
+
         opacity:opacity, 
         transform:y.interpolate(y => `translate3d(${y}px,0,0)`)}}>
         <div style={{ margin: 50}}>
             <div>Vince is working on some stuff</div>
             <div style={ {opacity:0} }>with you guys in north london</div>
         </div>
-        <TileButton onClick={()=>{}} style={{width:'100%', opacity:0}}>GO ></TileButton>
+        <TileButton onClick={()=>onclick()} style={{width:'100%', opacity:0}}>GO ></TileButton>
     </IntroTile>,
-    ({height,opacity, y})=><IntroTile style={{
-        // height:height, 
+    ({height,opacity, y}, onclick)=><IntroTile style={{
         opacity:opacity, 
         transform:y.interpolate(y => `translate3d(${y}px,0,0)`)}}>
         <div style={{ margin: 50}}>            
             <div style={ {opacity:0} }>Vince is working on some stuff</div>
             <div>with you guys in north london</div>
         </div>
-        <TileButton onClick={()=>{}} style={{width:'100%', opacity:0}}>GO ></TileButton>
+        <TileButton onClick={()=>onclick()} style={{width:'100%', opacity:0}}>GO ></TileButton>
     </IntroTile>,
-    ({height,opacity, y})=><IntroTile style={{
-        // height:height, 
+    ({height,opacity, y}, onclick)=><IntroTile style={{
         opacity:opacity, 
         transform:y.interpolate(y => `translate3d(${y}px,0,0)`)}}>
         <div style={{ margin: 50, opacity:0}}>            
             <div style={ {opacity:0} }>Vince is working on some stuff</div>
             <div style={ {opacity:0} }>with you guys in north london</div>
         </div>
-        <TileButton onClick={()=>{}} style={{width:'100%'}}>GO ></TileButton>
+        <TileButton onClick={()=>onclick()} style={{width:'100%'}}>GO ></TileButton>
     </IntroTile>
 
 ]
@@ -106,7 +111,7 @@ const Intro =({openModal})=>{
         <Grid style={{minHeight:'100vh'}}>
             <Guttering render={isDesktop}/>
             <CenterFlex col={3}>
-                {trail.map(({...props},index)=>introContent[index](props))}
+                {trail.map(({...props},index)=>introContent[index](props, openModal))}
                 
             </CenterFlex>
             <Guttering render={isDesktop}/>

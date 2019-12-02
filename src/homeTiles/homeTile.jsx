@@ -58,9 +58,11 @@ const Title = styled.div`
   user-select:none;
 `
 
-export const TileButton = styled.button`
+export const TileButton = styled.div`
   height: ${TITLE_HEIGHT}px;
   width: ${TILE_WIDTH}px;
+  background-color: white;
+  color: black;
   line-height: 50px;
   font-size: calc(10px + 2vmin);
   border-top: thin solid white;
