@@ -58,7 +58,7 @@ const Title = styled.div`
   user-select:none;
 `
 
-export const TileButton = styled.div`
+export const TileButton = styled(animated.div)`
   height: ${TITLE_HEIGHT}px;
   width: ${TILE_WIDTH}px;
   background-color: white;
@@ -68,6 +68,24 @@ export const TileButton = styled.div`
   border-top: thin solid white;
   text-align: center;
   vertical-align: middle;
+`
+
+const TileWithSpring = ({onClick,children})=>{
+  const [MouseScale, setMouseScale] = useState(1.0)
+  const { transform } = useSpring({
+    transform: `perspective(600px) scale(${MouseScale})`,
+    config: { mass: 5, tension: 500, friction: 60 }
+  })
+
+  const inputFunctions = titlePress(
+    (ev) => {ev.stopPropagation(); onClick()}, 
+    (ev) => {ev.stopPropagation(); setMouseScale(1.3)}, 
+    (ev) => {ev.stopPropagation(); setMouseScale(1.0)})
+  return <TileButton {...inputFunctions} style={{width:"100%", transform:transform}}>{children}</TileButton>
+}
+
+export const TileSpring = styled(TileWithSpring)`
+width:100%
 `
 
 const titlePress = ( click=(ev)=>{}, held=(ev)=>{}, released=(ev)=>{})=>{
@@ -84,7 +102,7 @@ const titlePress = ( click=(ev)=>{}, held=(ev)=>{}, released=(ev)=>{})=>{
 const Back = ({content, setScale, flipped, setSelect})=> {
   const inputFunctions = titlePress(
     (ev) => {ev.stopPropagation(); setSelect()}, 
-    (ev) => {ev.stopPropagation(); setScale(1.05)}, 
+    (ev) => {ev.stopPropagation(); setScale(1.3)}, 
     (ev) => {ev.stopPropagation(); setScale(1.0)})
   return(<>
   <Content>

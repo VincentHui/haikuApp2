@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { animated, useSpring, config } from 'react-spring'
 import {connect} from 'react-redux'
 import { UnSelectAction, OpenModalAction, ModalNames } from '../homeTiles/reducers'
+// import { TileButton } from '../homeTiles/homeTile'
 import {ConnectedHome} from '../homeTiles/homeContainer'
 const Page = styled(animated.div)`
     width:100vw;
@@ -26,9 +27,11 @@ const SelectedHeader = styled.div`
     justify-items: center;
     flex-direction: row;
 `
-const BackButton = styled.button`
+const BackButton = styled.div`
     width:100px;
     height:100%;
+    background-color: white;
+    color: black;
 `
 
 export const SelectedTile = ({openModal, unSelectCard, title, icon})=>{

@@ -33,7 +33,7 @@ const Modals=[
     {name:ModalNames.SELECTED, toRender:()=><SelectedTileMain/>},
     {name:ModalNames.HOME, toRender:()=><ConnectedHome/>},
     {name:ModalNames.INTRO, toRender:()=><IntroMain/>}]
-const ModalSwitch = ({modalName})=>
+    const ModalSwitch = ({modalName})=>
     <>
         {Modals.map(obj=>
             <ModalOverlay key={obj.name} style={{pointerEvents:modalName===obj.name ? 'auto':'none'}}>

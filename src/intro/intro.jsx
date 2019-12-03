@@ -3,7 +3,7 @@ import { animated, useTrail, useSpring} from 'react-spring'
 import {connect} from 'react-redux'
 import styled from 'styled-components'
 import { OpenModalAction, ModalNames } from '../homeTiles/reducers'
-import { TileButton } from '../homeTiles/homeTile'
+import { TileSpring } from '../homeTiles/homeTile'
 import { useMediaQuery } from 'react-responsive'
 
 const Desktop = ({ children }) => {
@@ -55,7 +55,7 @@ const introContent =[
             <div style={ {opacity:0} }>Vince is working on some stuff</div>
             <div style={ {opacity:0} }>with you guys in north london</div>
         </div>
-        <TileButton onClick={()=>onclick()} style={{width:'100%', opacity:0}}>GO ></TileButton>
+        <TileSpring onClick={()=>onclick()} width={'100%'} style={{width:'100%', opacity:0}}>GO ></TileSpring>
     </IntroTile>,
     ({height,opacity, y}, onclick)=><IntroTile style={{
         opacity:opacity, 
@@ -64,7 +64,7 @@ const introContent =[
             <div style={ {opacity:0} }>Vince is working on some stuff</div>
             <div style={ {opacity:0} }>with you guys in north london</div>
         </div>
-        <TileButton onClick={()=>onclick()} style={{width:'100%', opacity:0}}>GO ></TileButton>
+        <TileSpring onClick={()=>onclick()} style={{width:'100%', opacity:0}}>GO ></TileSpring>
     </IntroTile>,
     ({height,opacity, y}, onclick)=><IntroTile style={{
 
@@ -74,7 +74,7 @@ const introContent =[
             <div>Vince is working on some stuff</div>
             <div style={ {opacity:0} }>with you guys in north london</div>
         </div>
-        <TileButton onClick={()=>onclick()} style={{width:'100%', opacity:0}}>GO ></TileButton>
+        <TileSpring onClick={()=>onclick()} style={{width:'100%', opacity:0}}>GO ></TileSpring>
     </IntroTile>,
     ({height,opacity, y}, onclick)=><IntroTile style={{
         opacity:opacity, 
@@ -83,7 +83,7 @@ const introContent =[
             <div style={ {opacity:0} }>Vince is working on some stuff</div>
             <div>with you guys in north london</div>
         </div>
-        <TileButton onClick={()=>onclick()} style={{width:'100%', opacity:0}}>GO ></TileButton>
+        <TileSpring onClick={()=>onclick()} style={{width:'100%', opacity:0}}>GO ></TileSpring>
     </IntroTile>,
     ({height,opacity, y}, onclick)=><IntroTile style={{
         opacity:opacity, 
@@ -92,7 +92,7 @@ const introContent =[
             <div style={ {opacity:0} }>Vince is working on some stuff</div>
             <div style={ {opacity:0} }>with you guys in north london</div>
         </div>
-        <TileButton onClick={()=>onclick()} style={{width:'100%'}}>GO ></TileButton>
+        <TileSpring onClick={()=>onclick()} style={{width:'100%'}}>GO ></TileSpring>
     </IntroTile>
 
 ]
