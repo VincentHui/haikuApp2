@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import { animated, useSpring, config } from 'react-spring'
 import {connect} from 'react-redux'
 import { UnSelectAction, OpenModalAction, ModalNames } from '../homeTiles/reducers'
+import { Grid, Guttering, CenterFlex } from '../intro/intro'
+import { useMediaQuery } from 'react-responsive'
 // import { TileButton } from '../homeTiles/homeTile'
 import {ConnectedHome} from '../homeTiles/homeContainer'
 const Page = styled(animated.div)`
@@ -35,28 +37,51 @@ const BackButton = styled.div`
 `
 
 export const SelectedTile = ({openModal, unSelectCard, title, icon})=>{
+    const isDesktop = useMediaQuery({ minWidth: 992 });
+    return <div style={{width:'100vw'}}>
+        <SelectedHeader>
+            <BackButton onClick={()=>{
+                openModal();
+                unSelectCard();
+                }}></BackButton>
+            <div style={{textAlign:'left', marginLeft:20}}>{title} - STATISTICS - DATE</div>
+        </SelectedHeader>
+        <Grid style={{minHeight:'100vh'}}>
 
-    return<Page>
-        <SelectedColumns >
-            <SelectedHeader>
-                <BackButton onClick={()=>{
-                    console.log('CLICKED')
-                    openModal();
-                    unSelectCard();
-                    }}></BackButton>
-                <div style={{textAlign:'left', marginLeft:20}}>{title} - STATISTICS - DATE</div>
-                {/* <div style={{textAlign:'left', marginLeft:20}}>A TITLE</div> */}
-            </SelectedHeader>
-            <div style={{  
-                position: 'relative',
+            <Guttering render={isDesktop}/>
+            <CenterFlex col={3}>
+                <div style={{  
                 color: 'white',
+                minWidth: 500,
+                minHeight: 200,
                 borderStyle: 'solid',
-                borderWidth: 'thin',
-                width: 500,
-                height: 500
+                borderWidth: 'thin'
                 }}>{icon(200)}</div>
-        </SelectedColumns>
-    </Page>
+            </CenterFlex>
+            <Guttering render={isDesktop}/>
+        </Grid>
+    </div>
+    // return<Page>
+    //     <SelectedColumns >
+    //         <SelectedHeader>
+    //             <BackButton onClick={()=>{
+    //                 console.log('CLICKED')
+    //                 openModal();
+    //                 unSelectCard();
+    //                 }}></BackButton>
+    //             <div style={{textAlign:'left', marginLeft:20}}>{title} - STATISTICS - DATE</div>
+    //             {/* <div style={{textAlign:'left', marginLeft:20}}>A TITLE</div> */}
+    //         </SelectedHeader>
+    //         <div style={{  
+    //             position: 'relative',
+    //             color: 'white',
+    //             borderStyle: 'solid',
+    //             borderWidth: 'thin',
+    //             width: 500,
+    //             height: 500
+    //             }}>{icon(200)}</div>
+    //     </SelectedColumns>
+    // </Page>
 }
 const mapStateToProps = (state) => ({
     title : state.SelectedTile ?  state.SelectedTile.title : '',

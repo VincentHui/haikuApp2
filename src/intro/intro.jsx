@@ -26,24 +26,24 @@ const IntroTile = styled(animated.div)`
     justify-content: flex-end;
     flex-direction: column;
 `
-const Grid= styled.div`
+export const Grid= styled.div`
     display: flex;
     flex-flow: row wrap;
 `
-const Item=styled.div`
+export const Item=styled.div`
     flex: ${props => props.col ? props.col : 1};
     color: white;
     // border-style: solid;
     // border-width: thin;
 `
-const CenterFlex=styled(Item)`
+export const CenterFlex=styled(Item)`
     display: flex;
     justify-content: center;
     flex-direction: row;
     align-items: center;
 `
 const config = { mass: 5, tension: 2000, friction: 350 }
-const Guttering= ({render})=>
+export const Guttering= ({render})=>
     (render && <Item>
         <div style={{height:100}}></div>
     </Item>)
