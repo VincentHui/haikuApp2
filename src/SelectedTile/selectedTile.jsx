@@ -6,18 +6,18 @@ import { UnSelectAction, OpenModalAction, ModalNames } from '../homeTiles/reduce
 import { Grid, Guttering, CenterFlex } from '../intro/intro'
 import { useMediaQuery } from 'react-responsive'
 // import { TileButton } from '../homeTiles/homeTile'
-import {ConnectedHome} from '../homeTiles/homeContainer'
-const Page = styled(animated.div)`
-    width:100vw;
-    background: #282c34;
-`
+// import {ConnectedHome} from '../homeTiles/homeContainer'
+// const Page = styled(animated.div)`
+//     width:100vw;
+//     background: #282c34;
+// `
 
-const SelectedColumns = styled.div`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-items: center;
-`
+// const SelectedColumns = styled.div`
+//     width: 100%;
+//     display: flex;
+//     flex-direction: column;
+//     justify-items: center;
+// `
 
 const SelectedHeader = styled.div`
     color: white;
@@ -61,27 +61,6 @@ export const SelectedTile = ({openModal, unSelectCard, title, icon})=>{
             <Guttering render={isDesktop}/>
         </Grid>
     </div>
-    // return<Page>
-    //     <SelectedColumns >
-    //         <SelectedHeader>
-    //             <BackButton onClick={()=>{
-    //                 console.log('CLICKED')
-    //                 openModal();
-    //                 unSelectCard();
-    //                 }}></BackButton>
-    //             <div style={{textAlign:'left', marginLeft:20}}>{title} - STATISTICS - DATE</div>
-    //             {/* <div style={{textAlign:'left', marginLeft:20}}>A TITLE</div> */}
-    //         </SelectedHeader>
-    //         <div style={{  
-    //             position: 'relative',
-    //             color: 'white',
-    //             borderStyle: 'solid',
-    //             borderWidth: 'thin',
-    //             width: 500,
-    //             height: 500
-    //             }}>{icon(200)}</div>
-    //     </SelectedColumns>
-    // </Page>
 }
 const mapStateToProps = (state) => ({
     title : state.SelectedTile ?  state.SelectedTile.title : '',
