@@ -46,13 +46,12 @@ export const CenterFlex=styled(Item)`
 `
 
 const IntroTileNonAb = styled(animated.div)`
-    width: 100%;
-    color: white;
-    border-style: solid;
-    border-width: thin;
+    flex: 2;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
+    width: 400px;
 `
 const config = { mass: 5, tension: 2000, friction: 350 }
 export const Guttering= ({render})=>
@@ -138,14 +137,23 @@ const Intro =({openModal})=>{
             <button>CARDS</button> 
         </Link> */}
         <Guttering render={isDesktop}/>
-        <div style={{flex:3}}>
+        {/* <div style={{flex:3}}> */}
             <IntroTileNonAb>
-                <Link to="/cards" style={{textDecoration: 'none'}}>
-                <div style={{color:'black',  backgroundColor: 'white', 
-                        width:200,  textAlign: 'center'}}>CARDS</div> 
-                </Link>
+                <div style={{ color: 'white',borderStyle: 'solid',borderWidth: 'thin'}}>
+                    <div style={{margin: 30}}>
+                        <div style={{margin: 'auto'}}>Vince is working on some stuff</div>
+                        <div style={{margin: 'auto'}}>with you guys in north london</div>
+                    </div>
+
+                    <Link to="/cards" style={{textDecoration: 'none', width:'100%'}}>
+                    <div style={{color:'black',  backgroundColor: 'white', 
+                    textAlign: 'center',height: 50,  textAlign: 'center',
+                    verticalAlign: 'middle', lineHeight:3}}>GO</div> 
+                    </Link>                    
+                </div>
+
             </IntroTileNonAb>
-        </div>
+        {/* </div> */}
         <Guttering render={isDesktop}/>
 
     </BigOleRoute>

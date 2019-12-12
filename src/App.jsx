@@ -11,7 +11,6 @@ import styled from 'styled-components'
 
 const AppParent = styled(animated.div)`
 position: absolute;
-overflow: hidden;
 width: 100%;
 height: 100%;
 `
@@ -19,8 +18,8 @@ height: 100%;
 
 export const BigOleRoute = styled.div`
 position: absolute;
-width: 95%;
-height: 95%;
+width: 100%;
+height: 100%;
 display: flex;
 justify-content: center;
 align-items: center;
