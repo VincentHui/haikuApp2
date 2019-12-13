@@ -7,8 +7,8 @@ body {
   background-color: #282c34;
 }
 body::-webkit-scrollbar {
-  width: 2px;
-  height: 2px;
+  width: 1px;
+  height: 1px;
   background-color: #282c34;
 }
 body {

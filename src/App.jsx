@@ -4,6 +4,7 @@ import { Switch, Route, Link, useLocation } from 'react-router-dom'
 import { useTransition, animated, config } from 'react-spring'
 import {IntroMain} from './intro/intro'
 import {ConnectedHome} from './homeTiles/homeContainer'
+import {SelectedTileMain} from './SelectedTile/selectedTile'
 // import './styles.css'
 import styled from 'styled-components'
 
@@ -48,7 +49,7 @@ export default function App() {
         <Route path="/" exact component={IntroMain} />
         <Route path="/b" component={B} />
         <Route path="/cards" component={ConnectedHome} />
-        <Route path="/c" component={C} />
+        <Route path="/selected" component={SelectedTileMain} />
       </Switch>
     </AppParent>
   ))

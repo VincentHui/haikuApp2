@@ -5,8 +5,9 @@ import styled from 'styled-components'
 import { OpenModalAction, ModalNames } from '../homeTiles/reducers'
 import { TileSpring } from '../homeTiles/homeTile'
 import { useMediaQuery } from 'react-responsive'
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import {  Link } from 'react-router-dom'
 import {BigOleRoute} from '../App'
+import { useHistory } from "react-router-dom"
 
 const Desktop = ({ children }) => {
   const isDesktop = useMediaQuery({ minWidth: 992 })
@@ -58,84 +59,12 @@ export const Guttering= ({render})=>
     (render && <Item>
         <div style={{height:100}}></div>
     </Item>)
-const introContent =[
-    ({height,opacity, y}, onclick, index)=><IntroTile key={index} style={{
-        opacity:opacity, 
-        transform:y.interpolate(y => `translate3d(${y}px,0,0)`)}}>
-        <div style={{ margin: 50, opacity:0}}>            
-            <div style={ {opacity:0} }>Vince is working on some stuff</div>
-            <div style={ {opacity:0} }>with you guys in north london</div>
-        </div>
-        <TileSpring onClick={()=>{}} width={'100%'} style={{width:'100%', opacity:0}}>GO ></TileSpring>
-    </IntroTile>,
-    ({height,opacity, y}, onclick, index)=><IntroTile key={index} style={{
-        opacity:opacity, 
-        transform:y.interpolate(y => `translate3d(${y}px,0,0)`)}}>
-        <div style={{ margin: 50, opacity:0}}>            
-            <div style={ {opacity:0} }>Vince is working on some stuff</div>
-            <div style={ {opacity:0} }>with you guys in north london</div>
-        </div>
-        <TileSpring onClick={()=>{}} style={{width:'100%', opacity:0}}>GO ></TileSpring>
-    </IntroTile>,
-    ({height,opacity, y}, onclick, index)=><IntroTile key={index} style={{
 
-        opacity:opacity, 
-        transform:y.interpolate(y => `translate3d(${y}px,0,0)`)}}>
-        <div style={{ margin: 50}}>
-            <div>Vince is working on some stuff</div>
-            <div style={ {opacity:0} }>with you guys in north london</div>
-        </div>
-        <TileSpring onClick={()=>{}} style={{width:'100%', opacity:0}}>GO ></TileSpring>
-    </IntroTile>,
-    ({height,opacity, y}, onclick, index)=><IntroTile key={index} style={{
-        opacity:opacity, 
-        transform:y.interpolate(y => `translate3d(${y}px,0,0)`)}}>
-        <div style={{ margin: 50}}>            
-            <div style={ {opacity:0} }>Vince is working on some stuff</div>
-            <div>with you guys in north london</div>
-        </div>
-        <TileSpring onClick={()=>{}} style={{width:'100%', opacity:0}}>GO ></TileSpring>
-    </IntroTile>,
-    ({height,opacity, y}, onclick, index)=><IntroTile key={index} style={{
-        opacity:opacity, 
-        transform:y.interpolate(y => `translate3d(${y}px,0,0)`)}}>
-        <div style={{ margin: 50, opacity:0}}>            
-            <div style={ {opacity:0} }>Vince is working on some stuff</div>
-            <div style={ {opacity:0} }>with you guys in north london</div>
-        </div>
-        <Link to="/cards">
-            <TileSpring onClick={()=>{}} style={{width:'100%'}}>GO ></TileSpring>
-        </Link>
-    </IntroTile>
-
-]
 const Intro =({openModal})=>{
     const isDesktop = useMediaQuery({ minWidth: 992 })
-    const trail = useTrail(introContent.length, {
-        config,
-        opacity: 1 ,
-        y:  0 ,
-        roty:0,
-        from: { opacity: 0, y: 200, roty:180},
-      })
- 
+    let history = useHistory();
     return <BigOleRoute >
-        {/* <Grid style={{minHeight:'100vh'}}>
-            <Guttering render={isDesktop}/>
-            <CenterFlex col={3}>
 
-                {trail.map(({...props},index)=>
-                    introContent[index](props, openModal, index)
-                )}
-
-
-
-            </CenterFlex>
-            <Guttering render={isDesktop}/>
-        </Grid> */}
-        {/* <Link to="/cards">
-            <button>CARDS</button> 
-        </Link> */}
         <Guttering render={isDesktop}/>
         {/* <div style={{flex:3}}> */}
             <IntroTileNonAb>
@@ -145,11 +74,12 @@ const Intro =({openModal})=>{
                         <div style={{margin: 'auto'}}>with you guys in north london</div>
                     </div>
 
-                    <Link to="/cards" style={{textDecoration: 'none', width:'100%'}}>
+                    <TileSpring onClick={()=>history.push("/cards")} style={{width:'100%', opacity:0}}>GO ></TileSpring>
+                    {/* <Link to="/cards" style={{textDecoration: 'none', width:'100%'}}>
                     <div style={{color:'black',  backgroundColor: 'white', 
                     textAlign: 'center',height: 50,  textAlign: 'center',
                     verticalAlign: 'middle', lineHeight:3}}>GO</div> 
-                    </Link>                    
+                    </Link>                     */}
                 </div>
 
             </IntroTileNonAb>
