@@ -36,9 +36,9 @@ text-shadow: 0px 2px 40px #00000020, 0px 2px 5px #00000030;
 export default function App() {
   const location = useLocation()
   const transitions = useTransition(location, location => location.pathname, {
-    from: { opacity: 0, transform: 'translate3d(100%,0,0) scale(0)', width:'0%' },
-    enter: { opacity: 1, transform: 'translate3d(0%,0,0) scale(1)', width:'100%' },
-    leave: { opacity: 0, transform: 'translate3d(-40%,0,0) scale(0)', width:'0%' },
+    from: { opacity: 0, transform: 'translate3d(100%,0,0) scale(0)'},
+    enter: { opacity: 1, transform: 'translate3d(0%,0,0) scale(1)' },
+    leave: { opacity: 0, transform: 'translate3d(-40%,0,0) scale(0)'},
     clamp: true,
     config: config.slow
   })
