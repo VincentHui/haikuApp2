@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { animated, useSpring } from 'react-spring'
 import { UpdateAction, SelectAction, UnSelectAction, OpenModalAction, ModalNames } from './reducers'
 import {SelectedTileMain} from '../SelectedTile/selectedTile'
-// import ClickNHold from './ClickNHold'
+import { useHistory } from "react-router-dom"
 export const TILE_HEIGHT = 250;
 export const TILE_WIDTH = 150;
 export const TITLE_HEIGHT = 50;
@@ -113,14 +113,15 @@ const Back = ({content, setScale, flipped, setSelect})=> {
     style={{pointerEvents:flipped? 'auto': 'none'}}>GO >></TileButton>
 </>)}
 
-const InitialTile = ({title,content,selectCard,unSelectCard,tile,Selected, openModal})=>{
-  const SelectedScale = Selected ===null ? 0 : Selected.title === title ? 0.15 : -1.0;
-  const [flipped,toogleFlipped] = useState(false)
+const InitialTile = ({title,content,selectCard,unSelectCard,tile,toogleFlipped, flipped})=>{
+  // const SelectedScale = Selected ===null ? 0 : Selected.title === title ? 0.15 : -0.10;
+  let history = useHistory();
+  // const [flipped,toogleFlipped] = useState(false)
   const [MouseScale, setMouseScale] = useState(1.0)
-  const inputFunctions = titlePress(() => toogleFlipped(!flipped), () => setMouseScale(0.7), () => setMouseScale(1.0))
+  const inputFunctions = titlePress(() => toogleFlipped(!flipped,title), () => setMouseScale(0.7), () => setMouseScale(1.0))
   const { transform, opacity, TileHeight } = useSpring({
     opacity: flipped ? 1 : 0,
-    transform: `perspective(600px) rotateY(${flipped ? 180 : 0}deg) scale(${MouseScale + SelectedScale + (flipped ? 0.1 : -0.1)})`,
+    transform: `perspective(600px) rotateY(${flipped ? 180 : 0}deg) scale(${MouseScale + (flipped ? 0.1 : -0.1)})`,
     TileHeight : flipped ? TILE_HEIGHT : 0, 
     config: { mass: 5, tension: 500, friction: 60 }
   })
@@ -139,8 +140,9 @@ const InitialTile = ({title,content,selectCard,unSelectCard,tile,Selected, openM
             setScale={setMouseScale} 
             flipped={flipped} 
             setSelect={()=>{
-              Selected===null ? selectCard(tile) : unSelectCard();
-              openModal(({})=><SelectedTileMain/>);
+              selectCard(tile)
+              // openModal(({})=><SelectedTileMain/>);
+              history.push('/selected')
               }}/>
         </HomeTile>
       </TileContainer>
@@ -149,13 +151,14 @@ const InitialTile = ({title,content,selectCard,unSelectCard,tile,Selected, openM
 }
 const mapStateToProps = (state, props) => ({
   tile: state.homeTiles.filter(tile=>tile.title===props.title)[0],
-  Selected : state.SelectedTile
+  Selected : state.SelectedTile,
+  flipped: state.homeTiles.filter(tile=>tile.title===props.title)[0].flipped,
 })
 const mapDispatchToProps = (dispatch) => ({
   toogleFlipped: (flipped,title) => dispatch(UpdateAction(flipped, title)),
   selectCard: (toSelect) => dispatch(SelectAction(toSelect)),
   unSelectCard: ()=>dispatch(UnSelectAction()),
-  openModal:(toRender)=>dispatch(OpenModalAction(ModalNames.SELECTED))
+  // openModal:(toRender)=>dispatch(OpenModalAction(ModalNames.SELECTED))
 })
 export const ConnectedTile = connect(
   mapStateToProps,

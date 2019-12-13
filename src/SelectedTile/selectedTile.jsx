@@ -5,6 +5,7 @@ import {connect} from 'react-redux'
 import { UnSelectAction, OpenModalAction, ModalNames } from '../homeTiles/reducers'
 import { Grid, Guttering, CenterFlex } from '../intro/intro'
 import { useMediaQuery } from 'react-responsive'
+import { useHistory } from "react-router-dom"
 // import { TileButton } from '../homeTiles/homeTile'
 // import {ConnectedHome} from '../homeTiles/homeContainer'
 // const Page = styled(animated.div)`
@@ -21,7 +22,7 @@ import { useMediaQuery } from 'react-responsive'
 
 const SelectedHeader = styled.div`
     color: white;
-    height: 70px;
+    height: 50px;
     width: 100%;
     border-bottom: thin solid white;
     display: flex;
@@ -38,11 +39,11 @@ const BackButton = styled.div`
 
 export const SelectedTile = ({openModal, unSelectCard, title, icon})=>{
     const isDesktop = useMediaQuery({ minWidth: 992 });
+    let history = useHistory();
     return <div style={{width:'100vw'}}>
         <SelectedHeader>
             <BackButton onClick={()=>{
-                openModal();
-                unSelectCard();
+                history.push('/cards')
                 }}></BackButton>
             <div style={{textAlign:'left', marginLeft:20}}>{title} - STATISTICS - DATE</div>
         </SelectedHeader>
