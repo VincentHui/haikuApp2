@@ -41,15 +41,15 @@ export const Item=styled.div`
 `
 export const CenterFlex=styled(Item)`
     display: flex;
-    justify-content: center;
-    flex-direction: row;
-    align-items: center;
+    // justify-content: center;
+    flex-direction: column;
+    // align-items: center;
 `
 
 const IntroTileNonAb = styled(animated.div)`
     flex: 2;
     display: flex;
-    justify-content: center;
+    // justify-content: center;
     align-items: center;
     flex-direction: column;
     width: 400px;
@@ -66,7 +66,6 @@ const Intro =({openModal})=>{
     return <BigOleRoute >
 
         <Guttering render={isDesktop}/>
-        {/* <div style={{flex:3}}> */}
             <IntroTileNonAb>
                 <div style={{ color: 'white',borderStyle: 'solid',borderWidth: 'thin'}}>
                     <div style={{margin: 30}}>
@@ -75,15 +74,9 @@ const Intro =({openModal})=>{
                     </div>
 
                     <TileSpring onClick={()=>history.push("/cards")} style={{width:'100%', opacity:0}}>GO ></TileSpring>
-                    {/* <Link to="/cards" style={{textDecoration: 'none', width:'100%'}}>
-                    <div style={{color:'black',  backgroundColor: 'white', 
-                    textAlign: 'center',height: 50,  textAlign: 'center',
-                    verticalAlign: 'middle', lineHeight:3}}>GO</div> 
-                    </Link>                     */}
                 </div>
 
             </IntroTileNonAb>
-        {/* </div> */}
         <Guttering render={isDesktop}/>
 
     </BigOleRoute>

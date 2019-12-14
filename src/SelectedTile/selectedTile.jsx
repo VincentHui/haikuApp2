@@ -47,17 +47,24 @@ export const SelectedTile = ({openModal, unSelectCard, title, icon})=>{
                 }}></BackButton>
             <div style={{textAlign:'left', marginLeft:20}}>{title} - STATISTICS - DATE</div>
         </SelectedHeader>
-        <Grid style={{minHeight:'100vh'}}>
+        <Grid >
 
             <Guttering render={isDesktop}/>
             <CenterFlex col={3}>
-                <div style={{  
-                color: 'white',
-                minWidth: 500,
-                minHeight: 200,
-                borderStyle: 'solid',
-                borderWidth: 'thin'
-                }}>{icon(200)}</div>
+                <div style={{width:'100%', height:50}}></div>
+                <CenterFlex style={{flexDirection:'row', justifyContent:'center'}}>
+                    {/* <Guttering render={isDesktop}/> */}
+                    <div style={{  
+                    color: 'white',
+                    minWidth: 300,
+                    minHeight: 300,
+                    borderStyle: 'solid',
+                    borderWidth: 'thin'
+                    }}>{icon(200)}</div>
+                    {/* <Guttering render={isDesktop}/> */}
+                </CenterFlex>
+                <div style={{width:'100%', height:50}}></div>
+                <div >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</div>
             </CenterFlex>
             <Guttering render={isDesktop}/>
         </Grid>
