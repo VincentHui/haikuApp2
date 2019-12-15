@@ -40,6 +40,7 @@ export const Item=styled.div`
     // border-width: thin;
 `
 export const CenterFlex=styled(Item)`
+    flex-grow: 4;
     display: flex;
     // justify-content: center;
     flex-direction: column;

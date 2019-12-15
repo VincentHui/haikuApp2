@@ -38,7 +38,7 @@ const BackButton = styled.div`
 `
 
 export const SelectedTile = ({openModal, unSelectCard, title, icon})=>{
-    const isDesktop = useMediaQuery({ minWidth: 992 });
+    const isDesktop = useMediaQuery({ minWidth: 750 });
     let history = useHistory();
     return <div style={{width:'100vw'}}>
         <SelectedHeader>
@@ -47,26 +47,22 @@ export const SelectedTile = ({openModal, unSelectCard, title, icon})=>{
                 }}></BackButton>
             <div style={{textAlign:'left', marginLeft:20}}>{title} - STATISTICS - DATE</div>
         </SelectedHeader>
-        <Grid >
-
-            <Guttering render={isDesktop}/>
-            <CenterFlex col={3}>
+        <Grid style={{ marginLeft:15, marginRight:15}}>
+            <CenterFlex col={2}>
                 <div style={{width:'100%', height:50}}></div>
                 <CenterFlex style={{flexDirection:'row', justifyContent:'center'}}>
-                    {/* <Guttering render={isDesktop}/> */}
                     <div style={{  
                     color: 'white',
-                    minWidth: 300,
+                    minWidth: 750,
                     minHeight: 300,
                     borderStyle: 'solid',
                     borderWidth: 'thin'
                     }}>{icon(200)}</div>
-                    {/* <Guttering render={isDesktop}/> */}
                 </CenterFlex>
-                <div style={{width:'100%', height:50}}></div>
-                <div >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</div>
+                <CenterFlex style={{flexDirection:'row', justifyContent:'center'}}>
+                    <div style={{maxWidth:750,fontSize:20}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</div>
+                </CenterFlex>
             </CenterFlex>
-            <Guttering render={isDesktop}/>
         </Grid>
     </div>
 }
