@@ -90,12 +90,12 @@ width:100%
 
 const titlePress = ( click=(ev)=>{}, held=(ev)=>{}, released=(ev)=>{})=>{
     return {
-      onMouseDown: (ev)=>held(ev),
-      onMouseUp: (ev)=>released(ev),
-      onMouseLeave: (ev)=>released(ev),
-      onClick: (ev)=>click(ev),
-      onTouchStart: (ev) => held(ev),
-      onTouchEnd: (ev) => released(ev),
+      onMouseDown: held,
+      onMouseUp: released,
+      onMouseLeave: released,
+      onClick: click,
+      onTouchStart: held,
+      onTouchEnd: released
   };
 }
 
@@ -116,19 +116,19 @@ const Back = ({content, setScale, flipped, setSelect})=> {
 const InitialTile = ({title,content,selectCard,unSelectCard,tile,toogleFlipped, flipped})=>{
   // const SelectedScale = Selected ===null ? 0 : Selected.title === title ? 0.15 : -0.10;
   let history = useHistory();
-  // const [flipped,toogleFlipped] = useState(false)
+  const [hover,toggleHover] = useState(false)
   const [MouseScale, setMouseScale] = useState(1.0)
-  const inputFunctions = titlePress(() => toogleFlipped(!flipped,title), () => setMouseScale(0.7), () => setMouseScale(1.0))
+  const inputFunctions = titlePress(() => toogleFlipped(!flipped,title), () => setMouseScale(0.7), () => {setMouseScale(1.0); toggleHover(false)})
   const { transform, opacity, TileHeight } = useSpring({
     opacity: flipped ? 1 : 0,
-    transform: `perspective(600px) rotateY(${flipped ? 180 : 0}deg) scale(${MouseScale + (flipped ? 0.1 : -0.1)})`,
+    transform: `perspective(600px) rotateY(${flipped ? 180 : 0}deg) scale(${MouseScale + (flipped ? 0.1 : -0.1) + (hover ? 0.1: 0.0)})`,
     TileHeight : flipped ? TILE_HEIGHT : 0, 
     config: { mass: 5, tension: 500, friction: 60 }
   })
   const front =  <><Content>{content}</Content><Title>{title}</Title></>
   
   return(
-    <OuterContainer {...inputFunctions}>
+    <OuterContainer {...inputFunctions} onMouseEnter={()=>{toggleHover(true)}}>
       <TileContainer>
         <HomeTile style={{ height: TileHeight.interpolate(h => TILE_HEIGHT -h),
            opacity: opacity.interpolate(o => 1 - o), transform }}>
