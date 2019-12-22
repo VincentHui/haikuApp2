@@ -46,12 +46,12 @@ export const OpenModalAction=(name)=>({
 })
 
 const initialState = [
-    {title:'FIREFLY', icon:AnimatedSkull,  flipped:false},
-    {title:'DESCENT', icon:AnimatedGhost,   flipped:false},
-    {title:'FISH', icon:AnimatedSkull,      flipped:false},
-    {title:'SUNLIGHT', icon:AnimatedGhost,  flipped:false},
-    {title:'A RUIN', icon:AnimatedSkull,    flipped:false},
-    {title:'ROSE',icon:AnimatedSkull,       flipped:false}]
+    {title:'FIREFLY', icon:AnimatedSkull,  flipped:false, description:'fires across the sky', date:{}},
+    {title:'DESCENT', icon:AnimatedGhost,   flipped:false, description:'toward the bottom of it', date:{}},
+    {title:'FISH', icon:AnimatedSkull,      flipped:false, description:'those that would be swimming', date:{}},
+    {title:'SUNLIGHT', icon:AnimatedGhost,  flipped:false, description:'a ray in which its revealed', date:{}},
+    {title:'A RUIN', icon:AnimatedSkull,    flipped:false, description:'would be decayed in a stillness', date:{}},
+    {title:'ROSE',icon:AnimatedSkull,       flipped:false, description:'no flowering in the concrete', date:{}}]
 
 export const homeTiles = (state = initialState, action) => {
     switch (action.type) {
@@ -59,9 +59,10 @@ export const homeTiles = (state = initialState, action) => {
             return state.map((item)=>{
                 return (item.title === action.title) ?
                 {
+                    ...item,
                     title: action.title,
                     flipped : action.flipped,
-                    icon: item.icon
+                    icon: item.icon,
                 }:                    
                 item;
             })

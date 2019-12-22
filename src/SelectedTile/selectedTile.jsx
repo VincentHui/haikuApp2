@@ -37,28 +37,36 @@ const BackButton = styled.div`
     color: black;
 `
 
-export const SelectedTile = ({openModal, unSelectCard, title, icon})=>{
+// const SelectedTileRow = styled(CenterFlex)`
+//     flexDirection:'row'
+//     justifyContent:'center'
+// `
+
+export const SelectedTile = ({openModal, unSelectCard, title, icon, description})=>{
     const isDesktop = useMediaQuery({ minWidth: 750 });
     let history = useHistory();
     return <div style={{width:'100vw'}}>
         <SelectedHeader>
             <BackButton onClick={()=>{
                 history.push('/cards')
-                }}></BackButton>
+            }}>{'<<'}</BackButton>
             <div style={{textAlign:'left', marginLeft:20}}>{title} - STATISTICS - DATE</div>
         </SelectedHeader>
         <Grid style={{ marginLeft:15, marginRight:15}}>
             <CenterFlex col={2}>
-                <div style={{width:'100%', height:50}}></div>
+                <CenterFlex style={{flexDirection:'row', justifyContent:'center', marginTop: 25, marginBottom: 25}}>
+                    <h1>{description}</h1>
+                </CenterFlex>
                 <CenterFlex style={{flexDirection:'row', justifyContent:'center'}}>
                     <div style={{  
                     color: 'white',
-                    minWidth: 750,
+                    maxWidth: 750,
                     minHeight: 300,
                     borderStyle: 'solid',
                     borderWidth: 'thin'
                     }}>{icon(200)}</div>
                 </CenterFlex>
+                <div style={{width:'100%', height:50}}></div>
                 <CenterFlex style={{flexDirection:'row', justifyContent:'center'}}>
                     <div style={{maxWidth:750,fontSize:20}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</div>
                 </CenterFlex>
@@ -68,7 +76,8 @@ export const SelectedTile = ({openModal, unSelectCard, title, icon})=>{
 }
 const mapStateToProps = (state) => ({
     title : state.SelectedTile ?  state.SelectedTile.title : '',
-    icon : state.SelectedTile ? state.SelectedTile.icon : ()=>null
+    icon : state.SelectedTile ? state.SelectedTile.icon : ()=>null,
+    description : state.SelectedTile ? state.SelectedTile.description : 'A WHITE BARROW DANCING'
   })
   const mapDispatchToProps = (dispatch) => ({
     openModal:()=>dispatch(OpenModalAction(ModalNames.HOME)),

@@ -74,7 +74,7 @@ const Intro =({openModal})=>{
                         <div style={{margin: 'auto'}}>with you guys in north london</div>
                     </div>
 
-                    <TileSpring onClick={()=>history.push("/cards")} style={{width:'100%', opacity:0}}>GO ></TileSpring>
+                    <TileSpring onClick={()=>history.push("/cards")} style={{width:'100%', opacity:0}}>GO >></TileSpring>
                 </div>
 
             </IntroTileNonAb>
