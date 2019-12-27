@@ -42,9 +42,7 @@ export const Item=styled.div`
 export const CenterFlex=styled(Item)`
     flex-grow: 4;
     display: flex;
-    // justify-content: center;
     flex-direction: column;
-    // align-items: center;
 `
 
 const IntroTileNonAb = styled(animated.div)`

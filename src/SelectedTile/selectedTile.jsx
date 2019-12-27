@@ -1,24 +1,12 @@
 import React, { useState} from 'react';
 import styled from 'styled-components'
-import { animated, useSpring, config } from 'react-spring'
+import { animated, useTrail } from 'react-spring'
 import {connect} from 'react-redux'
 import { UnSelectAction, OpenModalAction, ModalNames } from '../homeTiles/reducers'
 import { Grid, Guttering, CenterFlex } from '../intro/intro'
 import { useMediaQuery } from 'react-responsive'
 import { useHistory } from "react-router-dom"
-// import { TileButton } from '../homeTiles/homeTile'
-// import {ConnectedHome} from '../homeTiles/homeContainer'
-// const Page = styled(animated.div)`
-//     width:100vw;
-//     background: #282c34;
-// `
 
-// const SelectedColumns = styled.div`
-//     width: 100%;
-//     display: flex;
-//     flex-direction: column;
-//     justify-items: center;
-// `
 
 const SelectedHeader = styled.div`
     color: white;
@@ -37,13 +25,33 @@ const BackButton = styled.div`
     color: black;
 `
 
-// const SelectedTileRow = styled(CenterFlex)`
-//     flexDirection:'row'
-//     justifyContent:'center'
-// `
+const config = { mass: 5, tension: 900, friction: 150 }
 
 export const SelectedTile = ({openModal, unSelectCard, title, icon, description})=>{
-    const isDesktop = useMediaQuery({ minWidth: 750 });
+    const content =[
+        <CenterFlex style={{flexDirection:'row', justifyContent:'center', marginTop: 25, marginBottom: 25}}>
+            <h1>{description}</h1>
+        </CenterFlex>,
+        <CenterFlex style={{flexDirection:'row', justifyContent:'center'}}>
+            <div style={{  
+            color: 'white',
+            maxWidth: 750,
+            minHeight: 300,
+            borderStyle: 'solid',
+            borderWidth: 'thin'
+            }}>{icon(200)}</div>
+        </CenterFlex>,
+            <div style={{width:'100%', height:50}}></div>,
+        <CenterFlex style={{flexDirection:'row', justifyContent:'center'}}>,
+            <div style={{maxWidth:750,fontSize:18}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</div>
+        </CenterFlex>]
+    const trail = useTrail(content.length, {
+        config,
+        opacity: 1 ,
+        x:  0 ,
+        from: { opacity: 0, x: 30 },
+    })
+    // const isDesktop = useMediaQuery({ minWidth: 750 });
     let history = useHistory();
     return <div style={{width:'100vw'}}>
         <SelectedHeader>
@@ -54,22 +62,13 @@ export const SelectedTile = ({openModal, unSelectCard, title, icon, description}
         </SelectedHeader>
         <Grid style={{ marginLeft:15, marginRight:15}}>
             <CenterFlex col={2}>
-                <CenterFlex style={{flexDirection:'row', justifyContent:'center', marginTop: 25, marginBottom: 25}}>
-                    <h1>{description}</h1>
-                </CenterFlex>
-                <CenterFlex style={{flexDirection:'row', justifyContent:'center'}}>
-                    <div style={{  
-                    color: 'white',
-                    maxWidth: 750,
-                    minHeight: 300,
-                    borderStyle: 'solid',
-                    borderWidth: 'thin'
-                    }}>{icon(200)}</div>
-                </CenterFlex>
-                <div style={{width:'100%', height:50}}></div>
-                <CenterFlex style={{flexDirection:'row', justifyContent:'center'}}>
-                    <div style={{maxWidth:750,fontSize:20}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</div>
-                </CenterFlex>
+                {trail.map(({x,...rest}, index) =>{
+                    return <animated.div style={{
+                        ...rest,
+                        transform: x.interpolate(x => `translate3d(${x}vw,0,0)`)
+                        }} 
+                        key={index}>{content[index]}</animated.div>
+                })}
             </CenterFlex>
         </Grid>
     </div>
