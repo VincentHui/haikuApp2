@@ -6,8 +6,9 @@ import { OpenModalAction, ModalNames } from '../homeTiles/reducers'
 import { TileSpring } from '../homeTiles/homeTile'
 import { useMediaQuery } from 'react-responsive'
 import {  Link } from 'react-router-dom'
-import {BigOleRoute} from '../App'
+import { BigOleRoute, Item } from '../globalStyles'
 import { useHistory } from "react-router-dom"
+// import { } from '../'
 
 const Desktop = ({ children }) => {
   const isDesktop = useMediaQuery({ minWidth: 992 })
@@ -29,21 +30,11 @@ const IntroTile = styled(animated.div)`
     justify-content: flex-end;
     flex-direction: column;
 `
-export const Grid= styled.div`
+export const Grid= styled(animated.div)`
     display: flex;
     flex-flow: row wrap;
 `
-export const Item=styled.div`
-    flex: ${props => props.col ? props.col : 1};
-    color: white;
-    // border-style: solid;
-    // border-width: thin;
-`
-export const CenterFlex=styled(Item)`
-    flex-grow: 4;
-    display: flex;
-    flex-direction: column;
-`
+
 
 const IntroTileNonAb = styled(animated.div)`
     flex: 2;

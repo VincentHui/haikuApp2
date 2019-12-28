@@ -8,32 +8,12 @@ import {SelectedTileMain} from './SelectedTile/selectedTile'
 // import './styles.css'
 import styled from 'styled-components'
 
-
-
 const AppParent = styled(animated.div)`
 position: absolute;
 width: 100%;
 height: 100%;
 `
 
-
-export const BigOleRoute = styled.div`
-position: absolute;
-width: 100%;
-height: 100%;
-display: flex;
-justify-content: center;
-align-items: center;
-will-change: transform, opacity;
-overflow: hidden;
-`
-
-const BigOleRouteWithBigOleText = styled(BigOleRoute)`
-color: white;
-font-weight: 800;
-font-size: 15em;
-text-shadow: 0px 2px 40px #00000020, 0px 2px 5px #00000030;
-`
 export default function App() {
   const location = useLocation()
   const transitions = useTransition(location, location => location.pathname, {
@@ -47,7 +27,7 @@ export default function App() {
     <AppParent key={key} style={props}>
       <Switch location={location}>
         <Route path="/" exact component={IntroMain} />
-        <Route path="/b" component={B} />
+        {/* <Route path="/b" component={B} /> */}
         <Route path="/cards" component={ConnectedHome} />
         <Route path="/selected" component={SelectedTileMain} />
       </Switch>
@@ -55,23 +35,23 @@ export default function App() {
   ))
 }
 
-const A = () => (
-  <BigOleRouteWithBigOleText style={{ background: 'lightpink' }}>
-    <Link to="/b">A</Link>
-  </BigOleRouteWithBigOleText>
-)
+// const A = () => (
+//   <BigOleRouteWithBigOleText style={{ background: 'lightpink' }}>
+//     <Link to="/b">A</Link>
+//   </BigOleRouteWithBigOleText>
+// )
 
-const B = () => (
-  <BigOleRouteWithBigOleText style={{ background: 'lightblue' }}>
-    <Link to="/c">B</Link>
-  </BigOleRouteWithBigOleText>
-)
+// const B = () => (
+//   <BigOleRouteWithBigOleText style={{ background: 'lightblue' }}>
+//     <Link to="/c">B</Link>
+//   </BigOleRouteWithBigOleText>
+// )
 
-const C = () => (
-  <BigOleRouteWithBigOleText style={{ background: 'lightgreen' }}>
-    <Link to="/a">C</Link>
-  </BigOleRouteWithBigOleText>
-)
+// const C = () => (
+//   <BigOleRouteWithBigOleText style={{ background: 'lightgreen' }}>
+//     <Link to="/a">C</Link>
+//   </BigOleRouteWithBigOleText>
+// )
 
 // render(
 //   <BrowserRouter>

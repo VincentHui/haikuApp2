@@ -1,7 +1,9 @@
 import { AnimatedSkull } from '../svg/AnimatedSkull'
 import { AnimatedGhost } from '../svg/AnimatedGhost'
+import {haikuI_MetaData, haikuII_MetaData, haikuIII_MetaData, haikuIV_MetaData, haikuV_MetaData, haikuVI_MetaData} from '../SelectedTile/content'
 export const ActionTypes ={
-    UPDATE_TILE:'UPDATE_TILE',
+    // UPDATE_TILE:'UPDATE_TILE',
+    FLIP_TILE:'FLIP_TILE',
     REMOVE_TILE:'REMOVE_TILE',
     SELECT_TILE:'SELECT_TILE',
     UNSELECT_TILE:'UNSELECT_TILE',
@@ -14,12 +16,12 @@ export const ModalNames={
     SELECTED:'SELECTED'
 }
 
-export const UpdateAction=(flipped, title)=>
-({
-    type:ActionTypes.UPDATE_TILE,
-    title:title,
-    flipped:flipped
-})
+// export const UpdateAction=(flipped, title)=>
+// ({
+//     type:ActionTypes.UPDATE_TILE,
+//     title:title,
+//     flipped:flipped
+// })
 
 export const RemoveAction=(titleObj)=>
 ({
@@ -36,6 +38,11 @@ export const UnSelectAction=()=>({
     type:ActionTypes.UNSELECT_TILE
 })
 
+export const FlipAction=(flip, title)=>({
+    type:ActionTypes.FLIP_TILE,
+    flip:flip,
+    title: title
+})
 // export const CloseModalAction=()=>({
 //     type:ActionTypes.CLOSE_MODAL
 // })
@@ -46,25 +53,27 @@ export const OpenModalAction=(name)=>({
 })
 
 const initialState = [
-    {title:'FIREFLY', icon:AnimatedSkull,  flipped:false, description:'fires across the sky', date:{}},
-    {title:'DESCENT', icon:AnimatedGhost,   flipped:false, description:'toward the bottom of it', date:{}},
-    {title:'FISH', icon:AnimatedSkull,      flipped:false, description:'those that would be swimming', date:{}},
-    {title:'SUNLIGHT', icon:AnimatedGhost,  flipped:false, description:'a ray in which its revealed', date:{}},
-    {title:'A RUIN', icon:AnimatedSkull,    flipped:false, description:'would be decayed in a stillness', date:{}},
-    {title:'ROSE',icon:AnimatedSkull,       flipped:false, description:'no flowering in the concrete', date:{}}]
+    {flipped:false, ...haikuI_MetaData},
+    {flipped:false, ...haikuII_MetaData},
+    {flipped:false, ...haikuIII_MetaData},
+    {flipped:false, ...haikuIV_MetaData},
+    {flipped:false, ...haikuV_MetaData},
+    {flipped:false, ...haikuVI_MetaData}]
 
 export const homeTiles = (state = initialState, action) => {
     switch (action.type) {
-        case ActionTypes.UPDATE_TILE:
+        case ActionTypes.FLIP_TILE:
             return state.map((item)=>{
-                return (item.title === action.title) ?
-                {
+                // return (item.title === action.title) ?
+                // {
+                //     ...item,
+                //     flipped : action.flipped,
+                //     icon: item.icon,
+                // }:                    
+                return {
                     ...item,
-                    title: action.title,
-                    flipped : action.flipped,
-                    icon: item.icon,
-                }:                    
-                item;
+                    flipped : (item.title === action.title) ? action.flip : false
+                };
             })
         case ActionTypes.REMOVE_TILE:
             const index = state.indexOf(action.ToRemove)

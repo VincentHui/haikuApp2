@@ -2,7 +2,7 @@ import React, { useState} from 'react';
 import {connect} from 'react-redux'
 import styled from 'styled-components'
 import { animated, useSpring } from 'react-spring'
-import { UpdateAction, SelectAction, UnSelectAction, OpenModalAction, ModalNames } from './reducers'
+import { FlipAction, SelectAction, UnSelectAction, OpenModalAction, ModalNames } from './reducers'
 import {SelectedTileMain} from '../SelectedTile/selectedTile'
 import { useHistory } from "react-router-dom"
 export const TILE_HEIGHT = 250;
@@ -155,7 +155,7 @@ const mapStateToProps = (state, props) => ({
   flipped: state.homeTiles.filter(tile=>tile.title===props.title)[0].flipped,
 })
 const mapDispatchToProps = (dispatch) => ({
-  toogleFlipped: (flipped,title) => dispatch(UpdateAction(flipped, title)),
+  toogleFlipped: (flipped,title) => dispatch(FlipAction(flipped, title)),
   selectCard: (toSelect) => dispatch(SelectAction(toSelect)),
   unSelectCard: ()=>dispatch(UnSelectAction()),
   // openModal:(toRender)=>dispatch(OpenModalAction(ModalNames.SELECTED))

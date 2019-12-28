@@ -3,10 +3,10 @@ import styled from 'styled-components'
 import { animated, useTrail } from 'react-spring'
 import {connect} from 'react-redux'
 import { UnSelectAction, OpenModalAction, ModalNames } from '../homeTiles/reducers'
-import { Grid, Guttering, CenterFlex } from '../intro/intro'
+import { Grid, Guttering } from '../intro/intro'
 import { useMediaQuery } from 'react-responsive'
 import { useHistory } from "react-router-dom"
-
+import { CenterFlex } from '../globalStyles'
 
 const SelectedHeader = styled.div`
     color: white;
@@ -27,29 +27,30 @@ const BackButton = styled.div`
 
 const config = { mass: 5, tension: 900, friction: 150 }
 
-export const SelectedTile = ({openModal, unSelectCard, title, icon, description})=>{
-    const content =[
-        <CenterFlex style={{flexDirection:'row', justifyContent:'center', marginTop: 25, marginBottom: 25}}>
-            <h1>{description}</h1>
-        </CenterFlex>,
-        <CenterFlex style={{flexDirection:'row', justifyContent:'center'}}>
-            <div style={{  
-            color: 'white',
-            maxWidth: 750,
-            minHeight: 300,
-            borderStyle: 'solid',
-            borderWidth: 'thin'
-            }}>{icon(200)}</div>
-        </CenterFlex>,
-            <div style={{width:'100%', height:50}}></div>,
-        <CenterFlex style={{flexDirection:'row', justifyContent:'center'}}>,
-            <div style={{maxWidth:750,fontSize:18}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</div>
-        </CenterFlex>]
+export const SelectedTile = ({openModal, unSelectCard, title, icon, description, content})=>{
+    // const content =[
+    //     <CenterFlex style={{flexDirection:'row', justifyContent:'center', marginTop: 25, marginBottom: 25}}>
+    //         <h1 style={{textAlign:'center'}}>{description}</h1>
+    //     </CenterFlex>,
+    //     <CenterFlex style={{flexDirection:'row', justifyContent:'center'}}>
+    //         <div style={{  
+    //         color: 'white',
+    //         maxWidth: 750,
+    //         minHeight: 300,
+    //         borderStyle: 'solid',
+    //         borderWidth: 'thin'
+    //         }}>{icon(200)}</div>
+    //     </CenterFlex>,
+    //         <div style={{width:'100%', height:50}}></div>,
+    //     <CenterFlex style={{flexDirection:'row', justifyContent:'center'}}>,
+    //         <div style={{maxWidth:750,fontSize:18}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</div>
+    //     </CenterFlex>]
     const trail = useTrail(content.length, {
         config,
         opacity: 1 ,
         x:  0 ,
-        from: { opacity: 0, x: 30 },
+        rotY: 0,
+        from: { rotY: 180,opacity: 0, x: 30 , roty : 180},
     })
     // const isDesktop = useMediaQuery({ minWidth: 750 });
     let history = useHistory();
@@ -62,7 +63,7 @@ export const SelectedTile = ({openModal, unSelectCard, title, icon, description}
         </SelectedHeader>
         <Grid style={{ marginLeft:15, marginRight:15}}>
             <CenterFlex col={2}>
-                {trail.map(({x,...rest}, index) =>{
+                {trail.map(({x,rotY,...rest}, index) =>{
                     return <animated.div style={{
                         ...rest,
                         transform: x.interpolate(x => `translate3d(${x}vw,0,0)`)
@@ -74,9 +75,10 @@ export const SelectedTile = ({openModal, unSelectCard, title, icon, description}
     </div>
 }
 const mapStateToProps = (state) => ({
-    title : state.SelectedTile ?  state.SelectedTile.title : '',
-    icon : state.SelectedTile ? state.SelectedTile.icon : ()=>null,
-    description : state.SelectedTile ? state.SelectedTile.description : 'A WHITE BARROW DANCING'
+    // title : state.SelectedTile ?  state.SelectedTile.title : '',
+    icon :  ()=>null,
+    description :  'A WHITE BARROW DANCING',
+    content : state.SelectedTile ?  state.SelectedTile.content : []
   })
   const mapDispatchToProps = (dispatch) => ({
     openModal:()=>dispatch(OpenModalAction(ModalNames.HOME)),
