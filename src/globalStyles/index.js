@@ -8,7 +8,7 @@ display: flex;
 justify-content: center;
 align-items: center;
 will-change: transform, opacity;
-overflow: hidden;
+
 `
 export const BigOleRouteWithBigOleText = styled(BigOleRoute)`
 color: white;

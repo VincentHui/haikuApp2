@@ -2,7 +2,6 @@ import { AnimatedSkull } from '../svg/AnimatedSkull'
 import { AnimatedGhost } from '../svg/AnimatedGhost'
 import {haikuI_MetaData, haikuII_MetaData, haikuIII_MetaData, haikuIV_MetaData, haikuV_MetaData, haikuVI_MetaData} from '../SelectedTile/content'
 export const ActionTypes ={
-    // UPDATE_TILE:'UPDATE_TILE',
     FLIP_TILE:'FLIP_TILE',
     REMOVE_TILE:'REMOVE_TILE',
     SELECT_TILE:'SELECT_TILE',
@@ -16,22 +15,16 @@ export const ModalNames={
     SELECTED:'SELECTED'
 }
 
-// export const UpdateAction=(flipped, title)=>
-// ({
-//     type:ActionTypes.UPDATE_TILE,
-//     title:title,
-//     flipped:flipped
-// })
-
 export const RemoveAction=(titleObj)=>
 ({
     type:ActionTypes.REMOVE_TILE,
     ToRemove: titleObj
 })
 
-export const SelectAction=(toSelect)=>({
+export const SelectAction=(toSelect, yOffset)=>({
     type:ActionTypes.SELECT_TILE,
-    tileToSelect:toSelect
+    tileToSelect:toSelect,
+    y:yOffset
 })
 
 export const UnSelectAction=()=>({
@@ -43,9 +36,6 @@ export const FlipAction=(flip, title)=>({
     flip:flip,
     title: title
 })
-// export const CloseModalAction=()=>({
-//     type:ActionTypes.CLOSE_MODAL
-// })
 
 export const OpenModalAction=(name)=>({
     type:ActionTypes.OPEN_MODAL,
@@ -63,13 +53,7 @@ const initialState = [
 export const homeTiles = (state = initialState, action) => {
     switch (action.type) {
         case ActionTypes.FLIP_TILE:
-            return state.map((item)=>{
-                // return (item.title === action.title) ?
-                // {
-                //     ...item,
-                //     flipped : action.flipped,
-                //     icon: item.icon,
-                // }:                    
+            return state.map((item)=>{            
                 return {
                     ...item,
                     flipped : (item.title === action.title) ? action.flip : false
@@ -82,12 +66,12 @@ export const homeTiles = (state = initialState, action) => {
     return state
 }
 
-export const SelectedTile =(state=null, action)=>{
+export const SelectedTile =(state={selected:null, yOffset:0}, action)=>{
     switch (action.type) {
         case ActionTypes.SELECT_TILE:
-            return action.tileToSelect
+            return {selected: action.tileToSelect, yOffset: action.y}
         case ActionTypes.UNSELECT_TILE:
-            return null
+            return {selected:null, yOffset:0}
     }
     return state;
 }

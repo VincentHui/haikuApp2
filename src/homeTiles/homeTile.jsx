@@ -42,6 +42,7 @@ const Drawer = styled(animated.div)`
 
 const Content =styled.div`
   flex-grow: 3;
+  height:200px;
 `
 
 const Title = styled.div`
@@ -113,7 +114,7 @@ const Back = ({content, setScale, flipped, setSelect})=> {
     style={{pointerEvents:flipped? 'auto': 'none'}}>GO >></TileButton>
 </>)}
 
-const InitialTile = ({title,content,selectCard,unSelectCard,tile,toogleFlipped, flipped})=>{
+const InitialTile = ({title,content,selectCard,tile,toogleFlipped, flipped})=>{
   // const SelectedScale = Selected ===null ? 0 : Selected.title === title ? 0.15 : -0.10;
   let history = useHistory();
   const [hover,toggleHover] = useState(false)
@@ -140,8 +141,7 @@ const InitialTile = ({title,content,selectCard,unSelectCard,tile,toogleFlipped, 
             setScale={setMouseScale} 
             flipped={flipped} 
             setSelect={()=>{
-              selectCard(tile)
-              // openModal(({})=><SelectedTileMain/>);
+              selectCard(tile, window.pageYOffset)
               history.push('/selected')
               }}/>
         </HomeTile>
@@ -156,9 +156,8 @@ const mapStateToProps = (state, props) => ({
 })
 const mapDispatchToProps = (dispatch) => ({
   toogleFlipped: (flipped,title) => dispatch(FlipAction(flipped, title)),
-  selectCard: (toSelect) => dispatch(SelectAction(toSelect)),
+  selectCard: (toSelect, yOffset) => dispatch(SelectAction(toSelect,yOffset)),
   unSelectCard: ()=>dispatch(UnSelectAction()),
-  // openModal:(toRender)=>dispatch(OpenModalAction(ModalNames.SELECTED))
 })
 export const ConnectedTile = connect(
   mapStateToProps,
