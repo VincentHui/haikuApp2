@@ -43,10 +43,15 @@ export const SelectedTile = ({title, content})=>{
     let history = useHistory();
     return <div style={{width:'100vw'}}>
         <SelectedHeader>
-            <BackButton onClick={()=>{
+            <BackButton style={{
+                textAlign: 'center',
+                fontSize:20,
+                verticalAlign: 'middle',
+                lineHeight: '50px'}} 
+                onClick={()=>{
                 history.push('/cards')
             }}>{'<<'}</BackButton>
-            <div style={{textAlign:'left', marginLeft:20}}>{title} - STATISTICS - DATE</div>
+            <div style={{textAlign:'left', marginLeft:20, lineHeight: '50px'}}>{title} > STATISTICS > DATE</div>
         </SelectedHeader>
         <Grid style={{ marginLeft:15, marginRight:15}}>
             <CenterFlex col={2}>
@@ -63,8 +68,7 @@ export const SelectedTile = ({title, content})=>{
     </div>
 }
 const mapStateToProps = (state) => ({
-    // title : state.SelectedTile ?  state.SelectedTile.title : '',
-    // icon :  ()=>null,
+    title : state.SelectedTile.selected ?  state.SelectedTile.selected.title : '',
     // description :  'A WHITE BARROW DANCING',
     content : state.SelectedTile.selected ?  state.SelectedTile.selected.content : [],
     y : state.SelectedTile.yOffset

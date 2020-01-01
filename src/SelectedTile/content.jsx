@@ -43,18 +43,32 @@ export const haikuI_MetaData ={
         <div style={{width:'100%', height:50}}></div>,
         <CenterFlex style={{flexDirection:'column', justifyContent:'center', alignItems:'center', textAlign:'center'}}>
             <div style={{maxWidth:750,fontSize:18, borderStyle: 'solid',borderWidth: 'thin', padding: 10}}>Armored fish</div>
-            <div style={{width:'100%', height:20}}></div>
-            <div style={{maxWidth:750,fontSize:18}}>Scaly Steel, encased</div>
-            <div style={{maxWidth:750,fontSize:18}}>Against tough odds, tougher fins</div>
-            <div style={{maxWidth:750,fontSize:18}}>I wish I was soft</div>
+            <div style={{width:'100%', height:15}}></div>
+            <div style={{maxWidth:750,fontSize:15}}>Scaly Steel, encased</div>
+            <div style={{maxWidth:750,fontSize:15}}>Against tough odds, tougher fins</div>
+            <div style={{maxWidth:750,fontSize:15}}>I wish I was soft</div>
+            <div style={{width:'100%', height:11}}></div>
+            <div style={{maxWidth:750,fontSize:11}}>- sohrub</div>
         </CenterFlex>,
         <div style={{width:'100%', height:50}}></div>,
         <CenterFlex style={{flexDirection:'column', justifyContent:'center', alignItems:'center', textAlign:'center'}}>
-            <div style={{maxWidth:750,fontSize:18, borderStyle: 'solid',borderWidth: 'thin', padding: 10}}>Armored fish</div>
-            <div style={{width:'100%', height:20}}></div>
-            <div style={{maxWidth:750,fontSize:18}}>Scaly Steel, encased</div>
-            <div style={{maxWidth:750,fontSize:18}}>Against tough odds, tougher fins</div>
-            <div style={{maxWidth:750,fontSize:18}}>I wish I was soft</div>
+            <div style={{maxWidth:750,fontSize:18, borderStyle: 'solid',borderWidth: 'thin', padding: 10}}>Stem</div>
+            <div style={{width:'100%', height:15}}></div>
+            <div style={{maxWidth:750,fontSize:15}}>From Soil to flower</div>
+            <div style={{maxWidth:750,fontSize:15}}>keeping the beauty alive</div>
+            <div style={{maxWidth:750,fontSize:15}}>somebody needs to</div>
+            <div style={{width:'100%', height:11}}></div>
+            <div style={{maxWidth:750,fontSize:11}}>- gabe</div>
+        </CenterFlex>,
+        <div style={{width:'100%', height:50}}></div>,
+        <CenterFlex style={{flexDirection:'column', justifyContent:'center', alignItems:'center', textAlign:'center'}}>
+            <div style={{maxWidth:750,fontSize:18, borderStyle: 'solid',borderWidth: 'thin', padding: 10}}>Roar</div>
+            <div style={{width:'100%', height:15}}></div>
+            <div style={{maxWidth:750,fontSize:15}}>Unknown thing with lungs</div>
+            <div style={{maxWidth:750,fontSize:15}}>body shaking in redness</div>
+            <div style={{maxWidth:750,fontSize:15}}>lungs filled then emptied</div>
+            <div style={{width:'100%', height:11}}></div>
+            <div style={{maxWidth:750,fontSize:11}}>- vince</div>
         </CenterFlex>],
 }
 
