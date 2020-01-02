@@ -17,6 +17,10 @@ const SelectedHeader = styled.div`
     align-items: flex-start;
     justify-items: center;
     flex-direction: row;
+    position: sticky;
+    top:0;
+    background-color: #282c34;
+    z-index: 1
 `
 const BackButton = styled.div`
     width:100px;
@@ -51,7 +55,7 @@ export const SelectedTile = ({title, content})=>{
                 onClick={()=>{
                 history.push('/cards')
             }}>{'<<'}</BackButton>
-            <div style={{textAlign:'left', marginLeft:20, lineHeight: '50px'}}>{title} > STATISTICS > DATE</div>
+            <div style={{textAlign:'left', marginLeft:20, lineHeight: '50px'}}>cards >{title}</div>
         </SelectedHeader>
         <Grid style={{ marginLeft:15, marginRight:15}}>
             <CenterFlex col={2}>
