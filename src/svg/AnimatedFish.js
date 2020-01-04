@@ -4,7 +4,7 @@ import {TILE_WIDTH} from '../homeTiles/homeTile'
 
 export const AnimatedFish =(height)=>
     <animated.svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" 
-    height={height} width={TILE_WIDTH} viewBox="0 0 200 250" enable-background="new 0 0 200 250" >
+    height={height} width={TILE_WIDTH} viewBox="0 0 200 250" enableBackground="new 0 0 200 250" >
         <g id="Layer_1">
         </g>
         <g id="Layer_2">
@@ -76,9 +76,9 @@ export const AnimatedFish =(height)=>
                     </g>
                 </g>
                 <g>
-                    <path fill="none" stroke="#FFFFFF" stroke-width="3" stroke-miterlimit="10" d="M55.698,204.094
+                    <path fill="none" stroke="#FFFFFF" strokeWidth="3" strokeMiterlimit="10" d="M55.698,204.094
                         c0,7.424,6.018,13.441,13.44,13.441"/>
-                    <path fill="none" stroke="#FFFFFF" stroke-width="3" stroke-miterlimit="10" d="M82.578,230.975
+                    <path fill="none" stroke="#FFFFFF" strokeWidth="3" strokeMiterlimit="10" d="M82.578,230.975
                         c0-7.424-6.018-13.439-13.44-13.439"/>
                 </g>
             </g>
