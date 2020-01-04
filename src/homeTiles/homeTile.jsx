@@ -150,9 +150,9 @@ const InitialTile = ({title,content,selectCard,tile,toogleFlipped, flipped})=>{
    )  
 }
 const mapStateToProps = (state, props) => ({
-  tile: state.homeTiles.filter(tile=>tile.title===props.title)[0],
+  tile: state.homeTiles.filter(tile=>tile.contentKey===props.title)[0],
   Selected : state.SelectedTile,
-  flipped: state.homeTiles.filter(tile=>tile.title===props.title)[0].flipped,
+  flipped: state.homeTiles.filter(tile=>tile.contentKey===props.title)[0].flipped,
 })
 const mapDispatchToProps = (dispatch) => ({
   toogleFlipped: (flipped,title) => dispatch(FlipAction(flipped, title)),

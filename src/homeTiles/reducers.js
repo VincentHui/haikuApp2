@@ -1,6 +1,15 @@
 import { AnimatedSkull } from '../svg/AnimatedSkull'
 import { AnimatedGhost } from '../svg/AnimatedGhost'
 import {haikuI_MetaData, haikuII_MetaData, haikuIII_MetaData, haikuIV_MetaData, haikuV_MetaData, haikuVI_MetaData} from '../SelectedTile/content'
+export const contentDict={
+    'HAIKUS part i' : haikuI_MetaData,
+    'HAIKUS part ii' : haikuII_MetaData,
+    'HAIKUS part iii' : haikuI_MetaData,
+    'HAIKUS part iv' : haikuI_MetaData,
+    'HAIKUS part v' : haikuI_MetaData,
+    'HAIKUS part vi': haikuI_MetaData 
+}
+
 export const ActionTypes ={
     FLIP_TILE:'FLIP_TILE',
     REMOVE_TILE:'REMOVE_TILE',
@@ -43,12 +52,12 @@ export const OpenModalAction=(name)=>({
 })
 
 const initialState = [
-    {flipped:false, ...haikuI_MetaData},
-    {flipped:false, ...haikuII_MetaData},
-    {flipped:false, ...haikuIII_MetaData},
-    {flipped:false, ...haikuIV_MetaData},
-    {flipped:false, ...haikuV_MetaData},
-    {flipped:false, ...haikuVI_MetaData}]
+    {flipped:false, contentKey: 'HAIKUS part i'},
+    {flipped:false, contentKey: 'HAIKUS part ii'},
+    {flipped:false, contentKey: 'HAIKUS part iii'},
+    {flipped:false, contentKey: 'HAIKUS part iv'},
+    {flipped:false, contentKey: 'HAIKUS part v'},
+    {flipped:false, contentKey: 'HAIKUS part vi'}]
 
 export const homeTiles = (state = initialState, action) => {
     switch (action.type) {
@@ -56,7 +65,7 @@ export const homeTiles = (state = initialState, action) => {
             return state.map((item)=>{            
                 return {
                     ...item,
-                    flipped : (item.title === action.title) ? action.flip : false
+                    flipped : (item.contentKey === action.title) ? action.flip : false
                 };
             })
         case ActionTypes.REMOVE_TILE:

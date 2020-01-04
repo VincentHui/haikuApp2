@@ -7,6 +7,8 @@ import { Grid, Guttering } from '../intro/intro'
 import { useMediaQuery } from 'react-responsive'
 import { useHistory } from "react-router-dom"
 import { CenterFlex } from '../globalStyles'
+import { Route } from 'react-router-dom'
+import { contentDict } from '../homeTiles/reducers'
 
 const SelectedHeader = styled.div`
     color: white;
@@ -72,9 +74,9 @@ export const SelectedTile = ({title, content})=>{
     </div>
 }
 const mapStateToProps = (state) => ({
-    title : state.SelectedTile.selected ?  state.SelectedTile.selected.title : '',
-    // description :  'A WHITE BARROW DANCING',
-    content : state.SelectedTile.selected ?  state.SelectedTile.selected.content : [],
+    title : state.SelectedTile.selected ?  state.SelectedTile.selected.contentKey : '',
+    content : state.SelectedTile.selected ? contentDict[state.SelectedTile.selected.contentKey].content : [],
+    // content:[],
     y : state.SelectedTile.yOffset
   })
   const mapDispatchToProps = (dispatch) => ({

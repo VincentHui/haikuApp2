@@ -3,7 +3,8 @@ import styled from 'styled-components'
 import { useTrail, animated, useSpring } from 'react-spring'
 import {connect} from 'react-redux'
 
-import { ConnectedTile, TILE_HEIGHT, TITLE_HEIGHT, TILE_WIDTH } from './homeTile'
+import { ConnectedTile, TILE_HEIGHT, TITLE_HEIGHT } from './homeTile'
+import { contentDict } from './reducers'
 const config = { mass: 5, tension: 1500, friction: 350 }
 const HomeContainer = styled(animated.div)`
   max-width: 100vw;
@@ -44,16 +45,19 @@ const Home =({tiles, y})=>{
 
    }, []);
     return (<HomeContainer>
-    {trail.map(({ x, svgHeight, ...rest }, index) => (
-      <HomeTiles
-        key={tiles[index].title}
+    {trail.map(({ x, svgHeight, ...rest }, index) => {
+      const key = tiles[index].contentKey;
+      const content =contentDict[key]
+      return <HomeTiles
+        key={key}
         style={{ ...rest, transform: x.interpolate(x => `translate3d(${x}px,0,0)`) }}>
           <ConnectedTile 
-            title={tiles[index].title} 
-            content={tiles[index].icon(svgHeight)}
+            title={key} 
+            content={content.icon(svgHeight)}
             />
       </HomeTiles>
-    ))}
+      }
+    )}
     </HomeContainer>)   
   }
   
