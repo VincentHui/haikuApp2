@@ -10,7 +10,7 @@ import { CenterFlex } from '../globalStyles'
 
 const SelectedHeader = styled.div`
     color: white;
-    height: 50px;
+    height: 40px;
     width: 100%;
     border-bottom: thin solid white;
     display: flex;
@@ -51,11 +51,11 @@ export const SelectedTile = ({title, content})=>{
                 textAlign: 'center',
                 fontSize:20,
                 verticalAlign: 'middle',
-                lineHeight: '50px'}} 
+                lineHeight: '40px'}} 
                 onClick={()=>{
                 history.push('/cards')
             }}>{'<<'}</BackButton>
-            <div style={{textAlign:'left', marginLeft:20, lineHeight: '50px'}}>cards >{title}</div>
+            <div style={{textAlign:'left', marginLeft:20, lineHeight: '40px'}}>cards >{title}</div>
         </SelectedHeader>
         <Grid style={{ marginLeft:15, marginRight:15}}>
             <CenterFlex col={2}>

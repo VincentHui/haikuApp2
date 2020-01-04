@@ -2,6 +2,8 @@
 import { CenterFlex } from '../globalStyles'
 import React, { useState} from 'react';
 import { AnimatedSkull } from '../svg/AnimatedSkull'
+import { AnimatedFish } from '../svg/AnimatedFish'
+import { AnimatedGhost } from '../svg/AnimatedGhost';
 
 // export const haikuIContent =[
 //     <CenterFlex style={{flexDirection:'row', justifyContent:'center', marginTop: 25, marginBottom: 25}}>
@@ -28,7 +30,7 @@ const Title = (title)=><CenterFlex style={{flexDirection:'row', justifyContent:'
 export const haikuI_MetaData ={
     description : 'we made some haikus last year',
     title : 'HAIKUS part i',
-    icon : AnimatedSkull,
+    icon : AnimatedFish,
     content: [
         Title('HAIKUS part i'),
         <CenterFlex style={{flexDirection:'row', justifyContent:'center'}}>
@@ -75,10 +77,12 @@ export const haikuI_MetaData ={
 export const haikuII_MetaData ={
     ...haikuI_MetaData,
     title : 'HAIKUS part ii',
+    icon : AnimatedGhost,
 }
 export const haikuIII_MetaData ={
     ...haikuI_MetaData,
     title : 'HAIKUS part iii',
+    icon : AnimatedSkull,
 }
 export const haikuIV_MetaData ={
     ...haikuI_MetaData,

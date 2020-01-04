@@ -4,7 +4,7 @@ import { useTrail, animated, useSpring } from 'react-spring'
 import {connect} from 'react-redux'
 
 import { ConnectedTile, TILE_HEIGHT, TITLE_HEIGHT, TILE_WIDTH } from './homeTile'
-const config = { mass: 5, tension: 1200, friction: 350 }
+const config = { mass: 5, tension: 1500, friction: 350 }
 const HomeContainer = styled(animated.div)`
   max-width: 100vw;
   min-height: 100vh;
@@ -25,7 +25,7 @@ const Home =({tiles, y})=>{
     x:  0 ,
     height: TILE_HEIGHT ,
     svgHeight: TILE_HEIGHT-TITLE_HEIGHT,
-    from: { opacity: 0, x: 10, height: 0 , svgHeight: 0},
+    from: { opacity: 0, x: 10, height: TILE_HEIGHT , svgHeight: TILE_HEIGHT-TITLE_HEIGHT},
   })
 
   useEffect(() => {
