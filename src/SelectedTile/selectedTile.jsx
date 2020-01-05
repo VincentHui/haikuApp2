@@ -33,7 +33,7 @@ const BackButton = styled.div`
 
 const config = { mass: 5, tension: 900, friction: 150 }
 
-export const SelectedTile = ({title, content})=>{
+const SelectedTile = ({title, content})=>{
     const trail = useTrail(content.length, {
         config,
         opacity: 1 ,
