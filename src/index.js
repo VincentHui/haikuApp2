@@ -27,7 +27,9 @@ const migrations = {
   }
 const persistConfig = {
     key: 'root',
+    version: 1,
     storage,
+    migrate: createMigrate(migrations)
   }
 
   const persistConfigDebug = {
@@ -37,7 +39,7 @@ const persistConfig = {
     migrate: createMigrate(migrations)
   }
   
-const persistedReducer = persistReducer(persistConfigDebug, reducer)
+const persistedReducer = persistReducer(persistConfig, reducer)
   
 
 // import {RootNavigation} from './rootNavigation'

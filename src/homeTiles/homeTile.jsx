@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { animated, useSpring } from 'react-spring'
 import { FlipAction, SelectAction, UnSelectAction, OpenModalAction, ModalNames } from './reducers'
 import {SelectedTileMain} from '../SelectedTile/selectedTile'
+import {string_to_slug} from './reducers'
 import { useHistory } from "react-router-dom"
 export const TILE_HEIGHT = 250;
 export const TILE_WIDTH = 150;
@@ -114,12 +115,12 @@ const Back = ({content, setScale, flipped, setSelect})=> {
     style={{pointerEvents:flipped? 'auto': 'none'}}>GO >></TileButton>
 </>)}
 
-const InitialTile = ({title,content,selectCard,tile,toogleFlipped, flipped})=>{
+const InitialTile = ({title,contentKey,content,selectCard,tile,toogleFlipped, flipped})=>{
   // const SelectedScale = Selected ===null ? 0 : Selected.title === title ? 0.15 : -0.10;
   let history = useHistory();
   const [hover,toggleHover] = useState(false)
   const [MouseScale, setMouseScale] = useState(1.0)
-  const inputFunctions = titlePress(() => toogleFlipped(!flipped,title), () => setMouseScale(0.7), () => {setMouseScale(1.0); toggleHover(false)})
+  const inputFunctions = titlePress(() => toogleFlipped(!flipped,contentKey), () => setMouseScale(0.7), () => {setMouseScale(1.0); toggleHover(false)})
   const { transform, opacity, TileHeight } = useSpring({
     opacity: flipped ? 1 : 0,
     transform: `perspective(600px) rotateY(${flipped ? 180 : 0}deg) scale(${MouseScale + (flipped ? 0.1 : -0.1) + (hover ? 0.1: 0.0)})`,
@@ -141,7 +142,7 @@ const InitialTile = ({title,content,selectCard,tile,toogleFlipped, flipped})=>{
             setScale={setMouseScale} 
             flipped={flipped} 
             setSelect={()=>{
-              selectCard(tile, window.pageYOffset)
+              selectCard(contentKey, window.pageYOffset)
               history.push('/selected')
               }}/>
         </HomeTile>
@@ -150,12 +151,12 @@ const InitialTile = ({title,content,selectCard,tile,toogleFlipped, flipped})=>{
    )  
 }
 const mapStateToProps = (state, props) => ({
-  tile: state.homeTiles.filter(tile=>tile.contentKey===props.title)[0],
+  tile: state.homeTiles.filter(tile=>tile.contentKey===props.contentKey)[0],
   Selected : state.SelectedTile,
-  flipped: state.homeTiles.filter(tile=>tile.contentKey===props.title)[0].flipped,
+  flipped: state.homeTiles.filter(tile=>tile.contentKey===props.contentKey)[0].flipped,
 })
 const mapDispatchToProps = (dispatch) => ({
-  toogleFlipped: (flipped,title) => dispatch(FlipAction(flipped, title)),
+  toogleFlipped: (flipped, key) => dispatch(FlipAction(flipped, key)),
   selectCard: (toSelect, yOffset) => dispatch(SelectAction(toSelect,yOffset)),
   unSelectCard: ()=>dispatch(UnSelectAction()),
 })

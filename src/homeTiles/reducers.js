@@ -1,13 +1,31 @@
 import { AnimatedSkull } from '../svg/AnimatedSkull'
 import { AnimatedGhost } from '../svg/AnimatedGhost'
 import {haikuI_MetaData, haikuII_MetaData, haikuIII_MetaData, haikuIV_MetaData, haikuV_MetaData, haikuVI_MetaData} from '../SelectedTile/content'
+export const string_to_slug = (str) => {
+    str = str.replace(/^\s+|\s+$/g, ''); // trim
+    str = str.toLowerCase();
+  
+    // remove accents, swap ñ for n, etc
+    var from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;";
+    var to   = "aaaaeeeeiiiioooouuuunc------";
+    for (var i=0, l=from.length ; i<l ; i++) {
+        str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+    }
+
+    str = str.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+        .replace(/\s+/g, '-') // collapse whitespace and replace by -
+        .replace(/-+/g, '-'); // collapse dashes
+
+    return str;
+}
+
 export const contentDict={
-    'HAIKUS part i' : haikuI_MetaData,
-    'HAIKUS part ii' : haikuII_MetaData,
-    'HAIKUS part iii' : haikuI_MetaData,
-    'HAIKUS part iv' : haikuI_MetaData,
-    'HAIKUS part v' : haikuI_MetaData,
-    'HAIKUS part vi': haikuI_MetaData 
+    'haikus-part-i' : haikuI_MetaData,
+    'haikus-part-ii' : haikuII_MetaData,
+    'haikus-part-iii' : haikuI_MetaData,
+    'haikus-part-iv' : haikuI_MetaData,
+    'haikus-part-v' : haikuI_MetaData,
+    'haikus-part-vi': haikuI_MetaData 
 }
 
 export const ActionTypes ={
@@ -52,12 +70,12 @@ export const OpenModalAction=(name)=>({
 })
 
 const initialState = [
-    {flipped:false, contentKey: 'HAIKUS part i'},
-    {flipped:false, contentKey: 'HAIKUS part ii'},
-    {flipped:false, contentKey: 'HAIKUS part iii'},
-    {flipped:false, contentKey: 'HAIKUS part iv'},
-    {flipped:false, contentKey: 'HAIKUS part v'},
-    {flipped:false, contentKey: 'HAIKUS part vi'}]
+    {flipped:false, contentKey: 'haikus-part-i'},
+    {flipped:false, contentKey: 'haikus-part-ii'},
+    {flipped:false, contentKey: 'haikus-part-iii'},
+    {flipped:false, contentKey: 'haikus-part-iv'},
+    {flipped:false, contentKey: 'haikus-part-v'},
+    {flipped:false, contentKey: 'haikus-part-vi'}]
 
 export const homeTiles = (state = initialState, action) => {
     switch (action.type) {

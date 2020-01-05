@@ -52,7 +52,8 @@ const Home =({tiles, y})=>{
         key={key}
         style={{ ...rest, transform: x.interpolate(x => `translate3d(${x}px,0,0)`) }}>
           <ConnectedTile 
-            title={key} 
+            contentKey={key}
+            title={content.title} 
             content={content.icon(svgHeight)}
             />
       </HomeTiles>

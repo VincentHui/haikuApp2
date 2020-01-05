@@ -9,7 +9,9 @@ import { useHistory } from "react-router-dom"
 import { CenterFlex } from '../globalStyles'
 import { Route } from 'react-router-dom'
 import { contentDict } from '../homeTiles/reducers'
-
+import {
+    useRouteMatch
+  } from "react-router-dom";
 const SelectedHeader = styled.div`
     color: white;
     height: 40px;
@@ -73,9 +75,15 @@ const SelectedTile = ({title, content})=>{
         </Grid>
     </div>
 }
+function routedTile ({title, content}){
+    // let match = useRouteMatch()
+    return (<Route path={`/selected/${'title-slug'}`}>
+     <SelectedTile title={title} content={content}/>
+     </Route>) 
+}
 const mapStateToProps = (state) => ({
-    title : state.SelectedTile.selected ?  state.SelectedTile.selected.contentKey : '',
-    content : state.SelectedTile.selected ? contentDict[state.SelectedTile.selected.contentKey].content : [],
+    title : state.SelectedTile.selected ?  state.SelectedTile.selected : '',
+    content : state.SelectedTile.selected ? contentDict[state.SelectedTile.selected].content : [],
     // content:[],
     y : state.SelectedTile.yOffset
   })
