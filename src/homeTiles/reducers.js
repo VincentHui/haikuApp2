@@ -22,10 +22,10 @@ export const string_to_slug = (str) => {
 export const contentDict={
     'haikus-part-i' : haikuI_MetaData,
     'haikus-part-ii' : haikuII_MetaData,
-    'haikus-part-iii' : haikuI_MetaData,
-    'haikus-part-iv' : haikuI_MetaData,
-    'haikus-part-v' : haikuI_MetaData,
-    'haikus-part-vi': haikuI_MetaData 
+    'haikus-part-iii' : haikuIII_MetaData,
+    'haikus-part-iv' : haikuIV_MetaData,
+    'haikus-part-v' : haikuV_MetaData,
+    'haikus-part-vi': haikuVI_MetaData 
 }
 
 export const ActionTypes ={

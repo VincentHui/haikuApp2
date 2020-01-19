@@ -29,7 +29,7 @@ export default function App() {
         <Route path="/" exact component={IntroMain} />
         {/* <Route path="/b" component={B} /> */}
         <Route path="/cards" component={ConnectedHome} />
-        <Route path="/selected" component={SelectedTileMain} />
+        <Route path="/selected/:key" render={(props)=> <SelectedTileMain {...props}/>} />
       </Switch>
     </AppParent>
   ))

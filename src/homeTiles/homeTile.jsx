@@ -143,7 +143,7 @@ const InitialTile = ({title,contentKey,content,selectCard,tile,toogleFlipped, fl
             flipped={flipped} 
             setSelect={()=>{
               selectCard(contentKey, window.pageYOffset)
-              history.push('/selected')
+              history.push(`/selected/${contentKey}`)
               }}/>
         </HomeTile>
       </TileContainer>

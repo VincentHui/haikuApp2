@@ -10,7 +10,9 @@ import { CenterFlex } from '../globalStyles'
 import { Route } from 'react-router-dom'
 import { contentDict } from '../homeTiles/reducers'
 import {
-    useRouteMatch
+    useRouteMatch,
+    useParams,
+    useLocation
   } from "react-router-dom";
 const SelectedHeader = styled.div`
     color: white;
@@ -35,8 +37,12 @@ const BackButton = styled.div`
 
 const config = { mass: 5, tension: 900, friction: 150 }
 
-const SelectedTile = ({title, content})=>{
-    const trail = useTrail(content.length, {
+const SelectedTile = ()=>{
+    let { key } = useParams();
+    const content = contentDict[key].content
+    const title = contentDict[key].title
+    // console.log(content)
+    let trail = useTrail(content.length, {
         config,
         opacity: 1 ,
         x:  0 ,
@@ -44,10 +50,8 @@ const SelectedTile = ({title, content})=>{
         from: { rotY: 180,opacity: 0, x: 30 , roty : 180},
     })
     useEffect(() => {
-        // console.log('SELECT')
         window.scrollTo(0, 0)
      }, []);
-    // const isDesktop = useMediaQuery({ minWidth: 750 });
     let history = useHistory();
     return <div style={{width:'100vw'}}>
         <SelectedHeader>
@@ -75,16 +79,15 @@ const SelectedTile = ({title, content})=>{
         </Grid>
     </div>
 }
-function routedTile ({title, content}){
-    // let match = useRouteMatch()
-    return (<Route path={`/selected/${'title-slug'}`}>
-     <SelectedTile title={title} content={content}/>
-     </Route>) 
-}
+// function routedTile ({title, content}){
+//     // let match = useRouteMatch()
+//     // return (<Route path={`/selected/${'title-slug'}`}>
+//     return <SelectedTile title={title} content={content}/>}
+//     //  </Route>) 
+
 const mapStateToProps = (state) => ({
-    title : state.SelectedTile.selected ?  state.SelectedTile.selected : '',
-    content : state.SelectedTile.selected ? contentDict[state.SelectedTile.selected].content : [],
-    // content:[],
+    // title : state.SelectedTile.selected ?  state.SelectedTile.selected : '',
+    // content : state.SelectedTile.selected ? contentDict[state.SelectedTile.selected].content : [],
     y : state.SelectedTile.yOffset
   })
   const mapDispatchToProps = (dispatch) => ({

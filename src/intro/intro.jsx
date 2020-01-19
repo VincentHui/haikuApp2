@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { animated, useTrail, useSpring} from 'react-spring'
 import {connect} from 'react-redux'
 import styled from 'styled-components'
 import { OpenModalAction, ModalNames } from '../homeTiles/reducers'
 import { TileSpring } from '../homeTiles/homeTile'
 import { useMediaQuery } from 'react-responsive'
-import {  Link } from 'react-router-dom'
+// import {  Link } from 'react-router-dom'
 import { BigOleRoute, Item } from '../globalStyles'
+// import React,  from 'react'
+import { Canvas, useFrame } from 'react-three-fiber'
 import { useHistory } from "react-router-dom"
 // import { } from '../'
 
@@ -65,12 +67,36 @@ const Intro =({openModal})=>{
 
                     <TileSpring onClick={()=>history.push("/cards")} style={{width:'100%', opacity:0}}>GO >></TileSpring>
                 </div>
-
             </IntroTileNonAb>
         <Guttering render={isDesktop}/>
-
+        <Canvas>
+            <ambientLight />
+            <pointLight position={[10, 10, 10]} />
+            <Thing position={[-1.2, 0, 0]} />
+            <Thing position={[1.2, 0, 0]} />
+        </Canvas>
     </BigOleRoute>
 }
+
+function Thing(props) {
+    const ref = useRef()
+    const [hovered, setHover] = useState(false)
+    const [active, setActive] = useState(false)
+    useFrame(() => (ref.current.rotation.x = ref.current.rotation.y += 0.01))
+    return (
+      <mesh
+        ref={ref}
+        {...props}
+        scale={active ? [1.5, 1.5, 1.5] : [1, 1, 1]}
+        onClick={e => setActive(!active)}
+        onPointerOver={e => setHover(true)}
+        onPointerOut={e => setHover(false)}>
+        <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
+        <meshStandardMaterial attach="material" color={hovered ? 'hotpink' : 'orange'} />
+      </mesh>
+    )
+  }
+
 const mapStateToProps = (state) => ({
     selectedTile : state.SelectedTile
   })
