@@ -22,16 +22,16 @@ const Mobile = ({ children }) => {
   return isMobile ? children : null
 }
 
-const IntroTile = styled(animated.div)`
-    position: absolute;
-    max-width: 300px;
-    color: white;
-    border-style: solid;
-    border-width: thin;
-    display: flex;
-    justify-content: flex-end;
-    flex-direction: column;
-`
+// const IntroTile = styled(animated.div)`
+//     position: absolute;
+//     max-width: 300px;
+//     color: white;
+//     border-style: solid;
+//     border-width: thin;
+//     display: flex;
+//     justify-content: flex-end;
+//     flex-direction: column;
+// `
 export const Grid= styled(animated.div)`
     display: flex;
     flex-flow: row wrap;
@@ -56,47 +56,100 @@ const Intro =({openModal})=>{
     const isDesktop = useMediaQuery({ minWidth: 992 })
     let history = useHistory();
     return <BigOleRoute >
-
         <Guttering render={isDesktop}/>
             <IntroTileNonAb>
                 <div style={{ color: 'white',borderStyle: 'solid',borderWidth: 'thin'}}>
                     <div style={{margin: 30}}>
-                        <div style={{margin: 'auto'}}>Vince is working on some stuff</div>
-                        <div style={{margin: 'auto'}}>with you guys in north london</div>
+                        <div style={{margin: 'auto', width: 200}}>Vince is working on some stuff with you guys in north london</div>
+                        {/* <div style={{margin: 'auto'}}></div> */}
                     </div>
 
                     <TileSpring onClick={()=>history.push("/cards")} style={{width:'100%', opacity:0}}>GO >></TileSpring>
                 </div>
             </IntroTileNonAb>
+            <div style={{ width: 400, height: 400}}>
+                <Canvas style={{width:'100%', height:'100%'}}>
+                    <ambientLight />
+                    <pointLight position={[10, 10, 10]} />
+                    <BodyToOrbit position={[0, 0, 0]} />
+                    <OrbitingChild position={[3,0,0]}/>
+                    {/* <Thing position={[1.2, 0, 0]} /> */}
+                </Canvas>
+            </div> 
         <Guttering render={isDesktop}/>
-        <Canvas>
-            <ambientLight />
-            <pointLight position={[10, 10, 10]} />
-            <Thing position={[-1.2, 0, 0]} />
-            <Thing position={[1.2, 0, 0]} />
-        </Canvas>
+
     </BigOleRoute>
 }
 
-function Thing(props) {
+// const Thing = (props) => {
+//     const ref = useRef()
+//     const [hovered, setHover] = useState(false)
+//     const [active, setActive] = useState(false)
+//     useFrame(() => (ref.current.rotation.x = ref.current.rotation.y += 0.01))
+//     return (
+//       <mesh
+//         ref={ref}
+//         {...props}
+//         scale={active ? [1.5, 1.5, 1.5] : [1, 1, 1]}
+//         onClick={e => setActive(!active)}
+//         onPointerOver={e => setHover(true)}
+//         onPointerOut={e => setHover(false)}>
+//         <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
+//         <meshStandardMaterial attach="material" color={hovered ? 'hotpink' : 'orange'} />
+//       </mesh>
+//     )
+//   }
+
+  const BodyToOrbit =(props)=>{
     const ref = useRef()
-    const [hovered, setHover] = useState(false)
-    const [active, setActive] = useState(false)
-    useFrame(() => (ref.current.rotation.x = ref.current.rotation.y += 0.01))
+    // const [hovered, setHover] = useState(false)
+    // const [active, setActive] = useState(false)
+    useFrame((state, delta) => (ref.current.rotation.x = ref.current.rotation.y += 0.3*delta ))
     return (
       <mesh
         ref={ref}
         {...props}
-        scale={active ? [1.5, 1.5, 1.5] : [1, 1, 1]}
-        onClick={e => setActive(!active)}
-        onPointerOver={e => setHover(true)}
-        onPointerOut={e => setHover(false)}>
+        scale={[1, 1, 1]}
+        >
         <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
-        <meshStandardMaterial attach="material" color={hovered ? 'hotpink' : 'orange'} />
+        <meshStandardMaterial attach="material" color={'orange'} />
       </mesh>
     )
   }
+const moveOnCircle =(t)=>{
+  // x = 0
+  // y = 0
+  const x = 2*Math.cos(t) + 0;
+  const y = 3*Math.sin(t) + 0;
+  return {x,y}
+}
+  const OrbitingChild =(props)=>{
+    const ref = useRef()
+    // const [angle, setAngle] = useState(0)
+    let angle = 0
+    // const [active, setActive] = useState(false)
+    useFrame((state, delta) => {
+      // console.log(ref.current)
+      // setAngle((s)=>s+delta*0.3)
+      angle+= delta*0.9
+      const {x,y} = moveOnCircle(angle)
+      // console.log(ref.current.position)
+      ref.current.position.x = x
+      ref.current.position.y = y
+    })
 
+      // ))
+    return (
+      <mesh
+        ref={ref}
+        {...props}
+        scale={[0.2, 0.2, 0.2]}
+        >
+        <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
+        <meshStandardMaterial attach="material" color={'orange'} />
+      </mesh>
+    )
+  }
 const mapStateToProps = (state) => ({
     selectedTile : state.SelectedTile
   })
