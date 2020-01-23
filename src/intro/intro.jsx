@@ -60,23 +60,24 @@
          <Guttering render={isDesktop}/>
              <IntroTileNonAb>
                  <div style={{ color: 'white',borderStyle: 'solid',borderWidth: 'thin'}}>
-                     <div style={{margin: 30}}>
-                        <div style={{margin: 'auto', width: 200}}>Vince is working on some stuff with you guys in north london</div>
-                        {/* <div style={{margin: 'auto'}}></div> */}
+
+                     <div style={{ width: 300}}>
+                        <Canvas style={{ height: 300}}>
+                            {/* <ambientLight /> */}
+                            <pointLight position={[0, 10, 0]} />
+                            <BodyToOrbit position={[0, 0, 0]} />
+                            <OrbitingChild position={[3,0,0]}/>
+                            {/* <Thing position={[1.2, 0, 0]} /> */}
+                        </Canvas>
+                        <div style={{margin: 30}}>Vince is working on some stuff with you guys in north london</div>
+                    </div> 
+                    <div style={{margin: 30}}>
+                       
                      </div>
- 
-                     <TileSpring onClick={()=>history.push("/cards")} style={{width:'100%', opacity:0}}>GO >></TileSpring>
+                    <TileSpring onClick={()=>history.push("/cards")} style={{width:'100%', opacity:0}}>GO >></TileSpring>
                  </div>
              </IntroTileNonAb>
-            <div style={{ width: 400, height: 400}}>
-                <Canvas style={{width:'100%', height:'100%'}}>
-                    <ambientLight />
-                    <pointLight position={[10, 10, 10]} />
-                    <BodyToOrbit position={[0, 0, 0]} />
-                    <OrbitingChild position={[3,0,0]}/>
-                    {/* <Thing position={[1.2, 0, 0]} /> */}
-                </Canvas>
-            </div> 
+
          <Guttering render={isDesktop}/>
 
      </BigOleRoute>
@@ -113,7 +114,7 @@
         scale={[1, 1, 1]}
         >
          <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
-        <meshStandardMaterial attach="material" color={'orange'} />
+        <meshStandardMaterial attach="material" color={'white'} />
        </mesh>
      )
    }
@@ -147,7 +148,7 @@ const moveOnCircle =(t)=>{
         scale={[0.2, 0.2, 0.2]}
         >
         <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
-        <meshStandardMaterial attach="material" color={'orange'} />
+        <meshStandardMaterial attach="material" color={'white'} />
       </mesh>
     )
   }
