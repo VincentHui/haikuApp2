@@ -1,27 +1,28 @@
-import React, { useRef, useState } from 'react';
-import { animated, useTrail, useSpring} from 'react-spring'
-import {connect} from 'react-redux'
-import styled from 'styled-components'
-import { OpenModalAction, ModalNames } from '../homeTiles/reducers'
-import { TileSpring } from '../homeTiles/homeTile'
-import { useMediaQuery } from 'react-responsive'
-// import {  Link } from 'react-router-dom'
-import { BigOleRoute, Item } from '../globalStyles'
-// import React,  from 'react'
-import { Canvas, useFrame } from 'react-three-fiber'
-import { useHistory } from "react-router-dom"
-// import { } from '../'
 
-const Desktop = ({ children }) => {
-  const isDesktop = useMediaQuery({ minWidth: 992 })
-  return isDesktop ? children : null
-}
-
-const Mobile = ({ children }) => {
-  const isMobile = useMediaQuery({ maxWidth: 767 })
-  return isMobile ? children : null
-}
-
+ import React, { useRef, useState } from 'react';
+ import { animated, useTrail, useSpring} from 'react-spring'
+ import {connect} from 'react-redux'
+ import styled from 'styled-components'
+ import { OpenModalAction, ModalNames } from '../homeTiles/reducers'
+ import { TileSpring } from '../homeTiles/homeTile'
+ import { useMediaQuery } from 'react-responsive'
+ // import {  Link } from 'react-router-dom'
+ import { BigOleRoute, Item } from '../globalStyles'
+ // import React,  from 'react'
+ import { Canvas, useFrame } from 'react-three-fiber'
+ import { useHistory } from "react-router-dom"
+ // import { } from '../'
+ 
+ const Desktop = ({ children }) => {
+   const isDesktop = useMediaQuery({ minWidth: 992 })
+   return isDesktop ? children : null
+ }
+ 
+ const Mobile = ({ children }) => {
+   const isMobile = useMediaQuery({ maxWidth: 767 })
+   return isMobile ? children : null
+ }
+ 
 // const IntroTile = styled(animated.div)`
 //     position: absolute;
 //     max-width: 300px;
@@ -32,41 +33,41 @@ const Mobile = ({ children }) => {
 //     justify-content: flex-end;
 //     flex-direction: column;
 // `
-export const Grid= styled(animated.div)`
-    display: flex;
-    flex-flow: row wrap;
-`
-
-
-const IntroTileNonAb = styled(animated.div)`
-    flex: 2;
-    display: flex;
-    // justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: 400px;
-`
-const config = { mass: 5, tension: 2000, friction: 350 }
-export const Guttering= ({render})=>
-    (render && <Item>
-        <div style={{height:100}}></div>
-    </Item>)
-
-const Intro =({openModal})=>{
-    const isDesktop = useMediaQuery({ minWidth: 992 })
-    let history = useHistory();
-    return <BigOleRoute >
-        <Guttering render={isDesktop}/>
-            <IntroTileNonAb>
-                <div style={{ color: 'white',borderStyle: 'solid',borderWidth: 'thin'}}>
-                    <div style={{margin: 30}}>
+ export const Grid= styled(animated.div)`
+     display: flex;
+     flex-flow: row wrap;
+ `
+ 
+ 
+ const IntroTileNonAb = styled(animated.div)`
+     flex: 2;
+     display: flex;
+     // justify-content: center;
+     align-items: center;
+     flex-direction: column;
+     width: 400px;
+ `
+ const config = { mass: 5, tension: 2000, friction: 350 }
+ export const Guttering= ({render})=>
+     (render && <Item>
+         <div style={{height:100}}></div>
+     </Item>)
+ 
+ const Intro =({openModal})=>{
+     const isDesktop = useMediaQuery({ minWidth: 992 })
+     let history = useHistory();
+     return <BigOleRoute >
+         <Guttering render={isDesktop}/>
+             <IntroTileNonAb>
+                 <div style={{ color: 'white',borderStyle: 'solid',borderWidth: 'thin'}}>
+                     <div style={{margin: 30}}>
                         <div style={{margin: 'auto', width: 200}}>Vince is working on some stuff with you guys in north london</div>
                         {/* <div style={{margin: 'auto'}}></div> */}
-                    </div>
-
-                    <TileSpring onClick={()=>history.push("/cards")} style={{width:'100%', opacity:0}}>GO >></TileSpring>
-                </div>
-            </IntroTileNonAb>
+                     </div>
+ 
+                     <TileSpring onClick={()=>history.push("/cards")} style={{width:'100%', opacity:0}}>GO >></TileSpring>
+                 </div>
+             </IntroTileNonAb>
             <div style={{ width: 400, height: 400}}>
                 <Canvas style={{width:'100%', height:'100%'}}>
                     <ambientLight />
@@ -76,16 +77,16 @@ const Intro =({openModal})=>{
                     {/* <Thing position={[1.2, 0, 0]} /> */}
                 </Canvas>
             </div> 
-        <Guttering render={isDesktop}/>
+         <Guttering render={isDesktop}/>
 
-    </BigOleRoute>
-}
-
+     </BigOleRoute>
+ }
+ 
 // const Thing = (props) => {
 //     const ref = useRef()
 //     const [hovered, setHover] = useState(false)
 //     const [active, setActive] = useState(false)
-//     useFrame(() => (ref.current.rotation.x = ref.current.rotation.y += 0.01))
+//     useFrame(() => (ref.current.rotation.x = ref.current.rotation.y = 0.01))
 //     return (
 //       <mesh
 //         ref={ref}
@@ -101,21 +102,21 @@ const Intro =({openModal})=>{
 //   }
 
   const BodyToOrbit =(props)=>{
-    const ref = useRef()
+     const ref = useRef()
     // const [hovered, setHover] = useState(false)
     // const [active, setActive] = useState(false)
     useFrame((state, delta) => (ref.current.rotation.x = ref.current.rotation.y += 0.3*delta ))
-    return (
-      <mesh
-        ref={ref}
-        {...props}
+     return (
+       <mesh
+         ref={ref}
+         {...props}
         scale={[1, 1, 1]}
         >
-        <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
+         <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
         <meshStandardMaterial attach="material" color={'orange'} />
-      </mesh>
-    )
-  }
+       </mesh>
+     )
+   }
 const moveOnCircle =(t)=>{
   // x = 0
   // y = 0
@@ -130,14 +131,14 @@ const moveOnCircle =(t)=>{
     // const [active, setActive] = useState(false)
     useFrame((state, delta) => {
       // console.log(ref.current)
-      // setAngle((s)=>s+delta*0.3)
+      // setAngle((s)=>sdelta*0.3)
       angle+= delta*0.9
       const {x,y} = moveOnCircle(angle)
       // console.log(ref.current.position)
       ref.current.position.x = x
       ref.current.position.y = y
     })
-
+ 
       // ))
     return (
       <mesh
@@ -150,13 +151,14 @@ const moveOnCircle =(t)=>{
       </mesh>
     )
   }
-const mapStateToProps = (state) => ({
-    selectedTile : state.SelectedTile
-  })
-const mapDispatchToProps = (dispatch) => ({
-    openModal:()=>dispatch(OpenModalAction(ModalNames.HOME))
-  })
-export const IntroMain = connect(
-    mapStateToProps,
-    mapDispatchToProps)
-    (Intro)
+ const mapStateToProps = (state) => ({
+     selectedTile : state.SelectedTile
+   })
+ const mapDispatchToProps = (dispatch) => ({
+     openModal:()=>dispatch(OpenModalAction(ModalNames.HOME))
+   })
+ export const IntroMain = connect(
+     mapStateToProps,
+     mapDispatchToProps)
+     (Intro)
+
