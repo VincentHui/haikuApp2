@@ -9,7 +9,7 @@
  // import {  Link } from 'react-router-dom'
  import { BigOleRoute, Item } from '../globalStyles'
  // import React,  from 'react'
- import { Canvas, useFrame } from 'react-three-fiber'
+ import { Canvas, useFrame, useThree } from 'react-three-fiber'
  import { useHistory } from "react-router-dom"
  // import { } from '../'
  
@@ -52,23 +52,48 @@
      (render && <Item>
          <div style={{height:100}}></div>
      </Item>)
+
+const Main = ({tileRef}) => {
+  const scene = useRef()
+  const { camera } = useThree()
+  useFrame(({ gl }) => { 
+    // console.log(gl)
+    const {left, right, top, bottom, width, height} = tileRef.current.getBoundingClientRect();
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+    const positiveYUpBottom = gl.domElement.height - bottom;
+    gl.setViewport(left, positiveYUpBottom, width, height);
+    gl.autoClear = true; 
+    gl.render(scene.current, camera)
+  }, 100)
+
+  // console.log(left, right, top, bottom, width, height)
+  // console.log('main')
+  return <scene ref={scene}>
+  <ambientLight color={'#282c34'}/>
+  <pointLight position={[0, -10, 15]} />
+  <BodyToOrbit position={[0, 0, 0]} />
+  <OrbitingChild position={[3,0,0]}/>
+  </scene>
+}
  
  const Intro =({openModal})=>{
      const isDesktop = useMediaQuery({ minWidth: 992 })
      let history = useHistory();
+     const TileRef = useRef()
      return <BigOleRoute >
+          <Canvas style={{position: 'absolute'}}>
+              <Main tileRef={TileRef}/>
+              {/* <Thing position={[1.2, 0, 0]} /> */}
+          </Canvas>
          <Guttering render={isDesktop}/>
              <IntroTileNonAb>
                  <div style={{ color: 'white',borderStyle: 'solid',borderWidth: 'thin'}}>
-
-                     <div style={{ width: 300}}>
-                        <Canvas style={{ height: 300}}>
-                            {/* <ambientLight /> */}
-                            <pointLight position={[0, 10, 0]} />
-                            <BodyToOrbit position={[0, 0, 0]} />
-                            <OrbitingChild position={[3,0,0]}/>
-                            {/* <Thing position={[1.2, 0, 0]} /> */}
-                        </Canvas>
+                    <div ref={TileRef} className='Fruit' style={{ width: 300, height: 300}}>
+                       
+                    </div> 
+                    <div style={{ width: 300}}>
+                        {/* {console.log(TileRef)} */}
                         <div style={{margin: 30}}>Vince is working on some stuff with you guys in north london</div>
                     </div> 
                     <div style={{margin: 30}}>
@@ -113,7 +138,7 @@
          {...props}
         scale={[1, 1, 1]}
         >
-         <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
+        <icosahedronBufferGeometry attach="geometry"  />
         <meshStandardMaterial attach="material" color={'white'} />
        </mesh>
      )
