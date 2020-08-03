@@ -56,6 +56,7 @@
 const Main = ({tileRef}) => {
   const scene = useRef()
   const { camera } = useThree()
+  const parentRef = useRef()
   useFrame(({ gl }) => { 
     // console.log(gl)
     const {left, right, top, bottom, width, height} = tileRef.current.getBoundingClientRect();
@@ -72,7 +73,7 @@ const Main = ({tileRef}) => {
   return <scene ref={scene}>
   <ambientLight color={'#282c34'}/>
   <pointLight position={[0, -10, 15]} />
-  <BodyToOrbit position={[0, 0, 0]} />
+  <BodyToOrbit ref={parentRef} position={[0, 0, 0]} />
   <OrbitingChild position={[3,0,0]}/>
   </scene>
 }
@@ -127,7 +128,7 @@ const Main = ({tileRef}) => {
 //     )
 //   }
 
-  const BodyToOrbit =(props)=>{
+  const BodyToOrbit =({props})=>{
      const ref = useRef()
     // const [hovered, setHover] = useState(false)
     // const [active, setActive] = useState(false)
@@ -150,10 +151,11 @@ const moveOnCircle =(t)=>{
   const y = 3*Math.sin(t) + 0;
   return {x,y}
 }
-  const OrbitingChild =(props)=>{
+let angle = 0
+  const OrbitingChild =({props})=>{
     const ref = useRef()
     // const [angle, setAngle] = useState(0)
-    let angle = 0
+    
     // const [active, setActive] = useState(false)
     useFrame((state, delta) => {
       // console.log(ref.current)
@@ -161,16 +163,23 @@ const moveOnCircle =(t)=>{
       angle+= delta*0.9
       const {x,y} = moveOnCircle(angle)
       // console.log(ref.current.position)
+      // var axis = new THREE.Vector3( 0, 1, 0 );
+      // var angle = Math.PI / 2;
+
       ref.current.position.x = x
-      ref.current.position.y = y
+      ref.current.position.z = y
+      // ref.current.position.applyAxisAngle([0,1,0], 0 )
+      // console.log(ref.current)
+      // ref.current.rotation.x = 45
     })
  
       // ))
     return (
       <mesh
         ref={ref}
-        {...props}
+        // {...props}
         scale={[0.2, 0.2, 0.2]}
+        rotation={[0,45,0, 'XYZ']}
         >
         <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
         <meshStandardMaterial attach="material" color={'white'} />
