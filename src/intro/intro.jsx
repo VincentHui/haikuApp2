@@ -6,7 +6,7 @@ import { OpenModalAction, ModalNames } from "../homeTiles/reducers";
 import { TileSpring } from "../homeTiles/homeTile";
 import { useMediaQuery } from "react-responsive";
 import { BigOleRoute, Item } from "../globalStyles";
-import { Canvas, useFrame, useThree } from "react-three-fiber";
+// import { Canvas, useFrame, useThree } from "react-three-fiber";
 import { useHistory } from "react-router-dom";
 
 const Desktop = ({ children }) => {
@@ -78,9 +78,9 @@ const Intro = ({ openModal }) => {
   const TileRef = useRef();
   return (
     <BigOleRoute>
-      <Canvas style={{ position: "absolute" }}>
+      {/* <Canvas style={{ position: "absolute" }}>
         <Main tileRef={TileRef} />
-      </Canvas>
+      </Canvas> */}
       <Guttering render={isDesktop} />
       <IntroTileNonAb>
         <div
